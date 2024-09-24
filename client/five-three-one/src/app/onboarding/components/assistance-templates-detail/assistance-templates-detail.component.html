@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ template.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- <div class="ion-padding">
+  <h1>{{ template.name }}</h1>
+  <p>{{ template.description }}</p>
+</div> -->
+<ion-list>
+  <ion-list-header>
+    <ion-text color="warning">
+      Squat Assistance Work
+    </ion-text>
+  </ion-list-header>
+  <ion-item *ngFor="let lift of template.lifts.squat; index as i">
+    <ion-text slot="start">{{ i + 1 }}</ion-text>
+    <ion-label>
+      <h1>{{ lift.name }}</h1>
+      <h3 *ngIf="lift.percentage">
+        Weight: {{ lift.percentage | percent}} of One Rep Max
+      </h3>
+      <ion-text color="medium" slot="end">
+         Reps: {{ lift.reps }}
+        <span *ngIf="lift.failure">+</span>
+        <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-text color="warning">
+      Bench Assistance Work
+    </ion-text>
+  </ion-list-header>
+  <ion-item *ngFor="let lift of template.lifts.bench; index as i">
+    <ion-text slot="start">{{ i + 1 }}</ion-text>
+    <ion-label>
+      <h1>{{ lift.name }}</h1>
+      <h3 *ngIf="lift.percentage">
+        Weight: {{ lift.percentage | percent}} of One Rep Max
+      </h3>
+      <ion-text color="medium" slot="end">
+         Reps: {{ lift.reps }}
+        <span *ngIf="lift.failure">+</span>
+        <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-text color="warning">
+      Deadlift Assistance Work
+    </ion-text>
+  </ion-list-header>
+  <ion-item *ngFor="let lift of template.lifts.deadlift; index as i">
+    <ion-text slot="start"> {{ i + 1 }}</ion-text>
+    <ion-label>
+      <h1>{{ lift.name }}</h1>
+      <h3 *ngIf="lift.percentage">
+        Weight: {{ lift.percentage | percent}} of One Rep Max
+      </h3>
+      <ion-text color="medium" slot="end">
+         Reps: {{ lift.reps }}
+        <span *ngIf="lift.failure">+</span>
+        <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-text color="warning">
+      Shoulder Press Assistance Work
+    </ion-text>
+  </ion-list-header>
+  <ion-item *ngFor="let lift of template.lifts.shoulderPress; index as i;">
+    <ion-text slot="start"> {{ i + 1 }}</ion-text>
+    <ion-label>
+      <h1>{{ lift.name }}</h1>
+      <h3 *ngIf="lift.percentage">
+        Weight: {{ lift.percentage | percent}} of One Rep Max
+      </h3>
+      <ion-text color="medium" slot="end">
+         Reps: {{ lift.reps }}
+        <span *ngIf="lift.failure">+</span>
+        <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-footer>
+  <div class="ion-padding">
+    <ion-button (click)="setCurrentTemplate()" expand="block" color="primary">Set As Current Template</ion-button>
+  </div>
+</ion-footer>

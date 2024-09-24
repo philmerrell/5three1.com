@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>   
+    <ion-title>
+      One Rep Max
+    </ion-title>             
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+  <div>
+    <ion-list>
+      <ion-list-header>
+        <ion-label color="warning">
+          Weight Unit
+        </ion-label>
+      </ion-list-header>
+      <ion-radio-group (ionChange)="setWeightUnit($event)" [value]="unit">
+        <ion-item>
+          <ion-label>lb</ion-label>
+          <ion-radio value="lb"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>kg</ion-label>
+          <ion-radio value="kg"></ion-radio>
+        </ion-item>
+  
+      </ion-radio-group>
+    </ion-list>
+  </div>
+  <form [formGroup]="form">
+    
+    <ion-list>
+      <ion-list-header>
+        <ion-label color="warning">
+          One Rep Max
+        </ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label position="stacked">Squat</ion-label>
+        <ion-input formControlName="squat" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Bench</ion-label>
+        <ion-input formControlName="bench" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Deadlift</ion-label>
+        <ion-input formControlName="deadlift" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Shoulder Press</ion-label>
+        <ion-input formControlName="shoulderPress" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+
+
+  <!-- <ion-item>
+    <ion-label position="stacked">Squat</ion-label>
+    <ion-input type="number"></ion-input>
+  </ion-item> -->
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button (click)="setScheduleSettings()"  color="primary" expand="block">Next</ion-button>
+</ion-footer>

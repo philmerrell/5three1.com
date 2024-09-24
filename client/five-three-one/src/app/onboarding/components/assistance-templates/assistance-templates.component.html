@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>   
+    <ion-title>
+      Assistance Work
+    </ion-title>             
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-card *ngFor="let template of templates" (click)="viewTemplate(template)">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card-title>
+            {{ template.name }} 
+          </ion-card-title>
+        </ion-col>
+        <ion-col size="auto">
+          <ion-icon name="chevron-forward-outline" size="large"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card-header>
+      
+    </ion-card-header>
+    <ion-card-content>
+      <p> {{ template.description }} </p>
+    </ion-card-content>
+    <div class="ion-padding">
+
+      <ion-button
+        *ngIf="assistanceWork"
+        (click)="setCurrentTemplate($event, template)"
+        fill="outline"
+        expand="block"
+        [color]="template.id === assistanceWork.id ? 'success' : 'primary'">
+          <ion-icon slot="end" [name]="template.id === assistanceWork.id ? 'checkmark' : 'chevron-forward-outline'"></ion-icon>
+          <span *ngIf="template.id === assistanceWork.id">
+            Selected
+          </span>
+          <span *ngIf="template.id !== assistanceWork.id">
+            Select
+          </span>
+      </ion-button>
+    </div>
+  </ion-card>
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button (click)="next()" color="primary" expand="block">Next</ion-button>
+</ion-footer>

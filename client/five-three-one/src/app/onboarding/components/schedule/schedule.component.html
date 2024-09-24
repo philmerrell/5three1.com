@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>   
+    <ion-title>
+      Set Your Schedule
+    </ion-title>             
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label color="warning">
+        Target Days
+      </ion-label>
+    </ion-list-header>
+    <ion-list>
+      <ion-item *ngFor="let day of targetDays">
+        <ion-label>{{ day.name }}</ion-label>
+        <ion-checkbox (ionChange)="selectDay($event)" [checked]="day.target" [value]="day" slot="end"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button (click)="chooseAssistanceTemplate()"  color="primary" expand="block">Next</ion-button>
+</ion-footer>
+

@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="background">
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref="/tabs/settings" text="Settings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      App Behavior
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar color="background" style="--border-style: none;">
+      <ion-title size="large">App Behavior</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap">
+        <h2>Rest Timer Notifications</h2>
+        <p>Enable push notifications for rest timer alerts</p>
+      </ion-label>
+      <ion-toggle [(ngModel)]="restTimerNotificationsSetting.isEnabled" (ionChange)="handleNotificationsToggle()" slot="end" color="success"></ion-toggle>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap">
+        <h2>Keep Screen On</h2>
+        <p>Prevent screen from turning off during workouts</p>
+      </ion-label>
+      <ion-toggle [(ngModel)]="keepScreenOn.isEnabled" (ionChange)="handleScreenToggle()" slot="end" color="success"></ion-toggle>
+    </ion-item>
+  </ion-card>
+  <!-- <ion-card>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap">
+        <h2>Apple Health</h2>
+        <p>Integration requires permissions to be granted in Settings -> Privacy -> Health -> Progress</p>
+      </ion-label>
+      <ion-toggle slot="end" color="success"></ion-toggle>
+    </ion-item>
+  </ion-card> -->
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button (click)="finish()" color="primary" expand="block">Finish</ion-button>
+</ion-footer>
