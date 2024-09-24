@@ -7,9 +7,14 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+        path: 'schedule',
+        loadComponent: () => 
+          import('../schedule/schedule/schedule.page').then( m => m.SchedulePage)
+      },
+      {
+        path: 'schedule/schedule-settings',
+        loadComponent: () => 
+          import('../schedule/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
       },
       {
         path: 'tab2',
@@ -23,14 +28,14 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/schedule',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/schedule',
     pathMatch: 'full',
   },
 ];
