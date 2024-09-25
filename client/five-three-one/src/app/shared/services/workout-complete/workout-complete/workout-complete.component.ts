@@ -9,6 +9,9 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 // import { HapticService } from '../../services/haptic.service';
 // import { InAppPurchaseService, MockProduct, PRODUCT_PERSONAL_RECORDS } from '../../services/in-app-purchase.service';
 // import { PRAttempt, PersonalRecordService } from '../../services/personal-record.service';
+import { trophy } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+
 
 @Component({
   selector: 'app-workout-complete',
@@ -53,7 +56,9 @@ export class WorkoutCompleteComponent implements OnInit, OnDestroy {
     private personalRecordService: PersonalRecordService,
     private platform: Platform,
     // private store: InAppPurchase2,
-    ) { }
+    ) {
+      addIcons({trophy});
+    }
 
   ngOnInit() {
     this.calculateElapsedTime();

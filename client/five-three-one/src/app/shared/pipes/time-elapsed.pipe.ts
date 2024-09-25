@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'timeElapsed'
+  name: 'timeElapsed',
+  standalone: true
 })
 export class TimeElapsedPipe implements PipeTransform {
 

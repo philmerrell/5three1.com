@@ -17,6 +17,11 @@ export const routes: Routes = [
           import('../schedule/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
       },
       {
+        path: 'schedule/workout/:id',
+        loadComponent: () => 
+          import('../schedule/workout/workout.page').then( m => m.WorkoutPage)
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),

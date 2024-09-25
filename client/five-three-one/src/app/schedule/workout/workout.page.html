@@ -1,0 +1,230 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref="/tabs/schedule" text="Schedule"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      @if(workout) {
+        <span>{{ workout.description }}</span>
+      }
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentCancelWorkoutAlert()" fill="clear" color="danger">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  @if(workout && purchaseStatus) {
+    <div>
+      <ion-header collapse="condense">
+        <ion-toolbar color="background">
+          <ion-title class="title-large">{{ workout.description }}</ion-title>
+          <ion-buttons slot="end">
+            @if(oneRepMax) {
+              <ion-button
+                (click)="presentOneRepMaxPromptAlert(workout.key, weightUnit, oneRepMax[workout.key])"
+                fill="clear"
+                color="primary"
+                size="large">
+                {{ oneRepMax[workout.key][weightUnit] + ' ' + weightUnit }}
+              </ion-button>
+            }
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+  
+      <!-- <div *ngIf="!purchaseStatus.plateCalculator.owned && plateCalculatorProduct">
+        <ion-item (click)="presentProductModal()" color="primary" detail>
+          <ion-icon name="calculator" slot="start"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            <h1>{{ plateCalculatorProduct.title }}</h1>
+            <p>{{ plateCalculatorProduct.description }}</p>
+          </ion-label>
+          <ion-text slot="end">{{ plateCalculatorProduct.price }}</ion-text>
+        </ion-item>
+      </div> -->
+      
+        <ion-list>
+          <ion-list-header color="background">
+            <ion-label color="warning">
+              Warmup
+            </ion-label>
+            <!-- <ion-button fill="clear" color="light">
+              <ion-icon slot="icon-only" size="small" name="settings"></ion-icon>
+            </ion-button> -->
+          </ion-list-header>
+          @for(lift of workout.warmup; let index = $index; track index) {
+            <ion-item color="background">
+              <div tabindex="0"></div>
+    
+              <ion-label>
+                <h3>{{ lift.name }}</h3>
+                <h1>
+                  {{ lift.weight[weightUnit] }} {{ weightUnit }}
+                  <small>
+                    x{{ lift.reps }}
+                    @if(lift.failure) {
+                      <span>+</span>
+                    }
+                    @if(!lift.failure) {
+                      <span>&nbsp;&nbsp;</span>
+                    }
+                  </small>
+                </h1>
+                @if(purchaseStatus.plateCalculator.owned) {
+                  <ion-text color="medium" slot="end">
+                    <span style="font-size: 0.9em;">Plates: </span>
+                    @for(plate of lift.plates[weightUnit]; let last = $last; let index = $index; track index) {
+                      <span>
+                        {{ plate.plateWeight }}
+                        @if(plate.qty > 2) {
+                          <span> x {{ plate.qty / 2 }}</span>
+                        }
+                        @if(!last) {
+                          <span>,</span>
+                        }
+                      </span>
+                    }
+                  </ion-text>
+                }
+              </ion-label>
+              @if(lift.id !== latestCompletedLiftId) {
+                <ion-button (click)="completeLift(lift)" [disabled]="lift.complete" slot="end" [fill]="lift.complete ? 'clear' : 'solid'" [color]="lift.complete ? 'dark' : 'success'" aria-label="Complete lift">
+                  <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
+                </ion-button>
+              }
+              @if(lift.id === latestCompletedLiftId) {
+                <ion-button (click)="presentRestTimerModal()" fill="clear" size="large">
+                  {{ timer | timeElapsed }}
+                </ion-button>
+              }
+            </ion-item>
+          }
+          <ion-list-header color="background">
+            <ion-label color="warning">
+              {{ workout.cycle }}
+            </ion-label>
+          </ion-list-header>
+          @for(lift of workout.lifts; let index = $index; track index; let last = $last) {
+            <ion-item color="background">
+              <ion-label>
+                <h3>{{ lift.name }}</h3>
+                <h1>
+                  {{ lift.weight[weightUnit] }} {{ weightUnit }}
+                  <small>
+                    x{{ lift.reps }}
+                    @if(lift.failure && !lift.complete) {
+                      <span>+</span>
+                    }
+                    @if(!lift.failure) {
+                      <span>&nbsp;&nbsp;</span>
+                    }
+                    
+                  </small>
+                </h1>
+                @if(purchaseStatus.plateCalculator.owned) {
+                  <ion-text color="medium" slot="end">
+                    <span style="font-size: 0.9em;">Plates: </span>
+                    @for(plate of lift.plates[weightUnit]; let last = $last; let index = $index; track index) {
+                      <span>
+                        {{ plate.plateWeight }}
+                        @if(plate.qty > 2) {
+                          <span> x {{ plate.qty / 2 }}</span>
+                        }
+                        @if(!last) {
+                          <span>,</span>
+                        }
+                      </span>
+                    }
+                  </ion-text>
+                }
+              </ion-label>
+              @if(lift.id !== latestCompletedLiftId) {
+                <ion-button (click)="completeLift(lift)" [disabled]="lift.complete" slot="end" [fill]="lift.complete ? 'clear' : 'solid'" [color]="lift.complete ? 'dark' : 'success'" aria-label="Complete lift">
+                  <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
+                </ion-button>
+              }
+              @if(lift.id === latestCompletedLiftId) {
+                <ion-button (click)="presentRestTimerModal()" fill="clear" size="large">
+                  {{ timer | timeElapsed }}
+                </ion-button>
+              }
+            </ion-item>
+          }
+          <ion-list-header color="background">
+            <ion-label color="warning">
+              Assistance Work
+            </ion-label>
+            <ion-button [routerLink]="'assistance-work/'+ workout.key" fill="clear" color="primary">
+              Edit
+            </ion-button>
+          </ion-list-header>
+          @if(!assistanceTemplateOnboardingStatus.onboarded) {
+            <ion-item color="background">
+              <ion-icon slot="start" name="bulb" color="secondary"></ion-icon>
+              <ion-label class="ion-text-wrap">
+                <ion-text>
+                  <b>Tip:</b> You can change assistance templates in the Settings tab
+                </ion-text>
+              </ion-label>
+              <ion-button (click)="setOnboardingAssistanceTemplateStatus()" slot="end" fill="clear" size="medium">OK</ion-button>
+            </ion-item>
+          }
+          @for(lift of workout.assistanceWork; let index = $index; track index) {
+            <ion-item color="background">
+              <ion-label>
+                <h3>{{ lift.name }}</h3>
+                <h1>
+                  {{ lift.weight[weightUnit] }} {{ weightUnit }}
+                  <small>
+                    x{{ lift.reps }}
+                    @if(lift.failure && !lift.complete) {
+                      <span>+</span>
+                    }
+                    @if(!lift.failure) {
+                      <span>&nbsp;&nbsp;</span>
+                    }
+                  </small>
+                </h1>
+                @if(purchaseStatus.plateCalculator.owned) {
+                  <ion-text color="medium" slot="end">
+                    <span style="font-size: 0.9em;">Plates: </span>
+                    @for(plate of lift.plates[weightUnit]; let index = $index; let last = $last; track index) {
+                      <span>
+                        {{ plate.plateWeight }}
+                        @if(plate.qty > 2) {
+                          <span> x {{ plate.qty / 2 }}</span>
+                        }
+                        @if(!last) {
+                          <span>,</span>
+                        }
+                      </span>
+                    }
+                  </ion-text>
+                }
+              </ion-label>
+              @if(lift.id !== latestCompletedLiftId) {
+                <ion-button (click)="completeLift(lift)" [disabled]="lift.complete" slot="end" [fill]="lift.complete ? 'clear' : 'solid'" [color]="lift.complete ? 'dark' : 'success'" aria-label="Complete lift">
+                  <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
+                </ion-button>
+              }
+              @if(lift.id === latestCompletedLiftId) {
+                <ion-button (click)="presentRestTimerModal()" fill="clear" size="large">
+                  {{ timer | timeElapsed }}
+                </ion-button>
+              }
+            </ion-item>
+          }
+        </ion-list>
+        
+        <div class="ion-padding">
+          <ion-button (click)="completeWorkout()" expand="block">
+            Complete Workout
+          </ion-button>
+        </div>
+      </div>
+  }
+
+</ion-content>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 export interface KeepScreenOnPlugin {
   enable(): Promise<SetResult>;
@@ -44,18 +45,18 @@ export class ScreenService {
 
   getState() {
     if (this.platform.is('capacitor')) {
-      return KeepScreenOn.getState();
+      // return KeepScreenOn.getState();
     }
   }
 
   setKeepScreenOnSetting(value: boolean) {
     this.keepScreenOn = { isEnabled: value };
-    return Storage.set({ key: 'keepScreenOn', value: JSON.stringify({ isEnabled: value })});
+    return Preferences.set({ key: 'keepScreenOn', value: JSON.stringify({ isEnabled: value })});
   }
 
   async getKeepScreenOnSetting(): Promise<{ isEnabled: boolean}> {
     if (!this.keepScreenOn) {
-      const result = await Storage.get({ key: 'keepScreenOn'});
+      const result = await Preferences.get({ key: 'keepScreenOn'});
       const keepScreenOn = result.value ? JSON.parse(result.value) : { isEnabled: false };
       this.keepScreenOn = keepScreenOn;
       return this.keepScreenOn

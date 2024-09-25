@@ -17,10 +17,7 @@
   </ion-header>
 
   @if(todaysCompletedWorkout) {
-    <div>
       <app-todays-completed-workout [workout]="todaysCompletedWorkout" [unit]="weightUnit"></app-todays-completed-workout>
-      <!-- <pre> {{ todaysCompletedWorkout | json }}</pre> -->
-    </div>
   }
   @if(schedule.length && oneRepMax) {
     <div>
@@ -28,11 +25,17 @@
         <div>
           <h4 style="margin-left: 20px; padding: 0; margin-bottom: 0;">{{ nextWorkout.targetDate | timeAhead }}</h4>
           <ion-card *ngIf="nextWorkout" style="margin-top: 10px;">
-            <ion-card-header>
-              <ion-card-subtitle color="medium">{{ nextWorkout.cycle }}</ion-card-subtitle>
-              <ion-card-title style="display: inline-block;">{{ nextWorkout.description }}</ion-card-title>
-              <ion-text (click)="presentOneRepMaxPromptAlert(nextWorkout.key, weightUnit, oneRepMax[nextWorkout.key][weightUnit])" style="float: right; font-size: 1.4em; font-weight: 500;" color="warning">{{ oneRepMax[nextWorkout.key][weightUnit] || 0 }}</ion-text>
-            </ion-card-header>
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="10" class="ion-text-start" >
+                  <h2 class="workout-description">{{ nextWorkout.description }}</h2>
+                  <ion-text class="workout-cycle" color="medium">{{ nextWorkout.cycle }}</ion-text>
+                </ion-col>
+                <ion-col size="2" class="ion-text-end">
+                  <ion-text (click)="presentOneRepMaxPromptAlert(nextWorkout.key, weightUnit, oneRepMax[nextWorkout.key][weightUnit])" class="one-rep-max" color="primary">{{ oneRepMax[nextWorkout.key][weightUnit] || 0 }}</ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
             @for(lift of nextWorkout.lifts; let index = $index; track index) {
               <ion-item>
                 <ion-label>
@@ -65,23 +68,30 @@
                   @if(!workout.datetimeCompleted && workout.id !== nextWorkout.id) {
                     <div>
                       <h4 style="margin-left: 20px; padding: 0; margin-bottom: 0;">{{ workout.targetDate | timeAhead }}</h4>
-          
-                      <ion-card style="margin-top: 5px;">
-                        <ion-card-header>
-                          <ion-card-subtitle color="medium">{{ workout.cycle }}</ion-card-subtitle>
-                          <ion-card-title style="display: inline-block;">{{ workout.description }}</ion-card-title>
-                          <ion-text (click)="presentOneRepMaxPromptAlert(workout.key, weightUnit, oneRepMax[workout.key][weightUnit])" style="float: right; font-size: 1.4em; font-weight: 500;" color="warning">{{ oneRepMax[workout.key][weightUnit] || 0 }}</ion-text>
-                        </ion-card-header>
-                        <ion-item *ngFor="let lift of workout.lifts">
-                          <ion-label>
-                            <h1>{{ lift.weight[weightUnit] }} {{ weightUnit }}</h1>
-                          </ion-label>
-                          <ion-text color="medium" slot="end">
-                            {{ lift.percentage | percent }} x{{ lift.reps }}
-                            <span *ngIf="lift.failure">+</span>
-                            <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
-                          </ion-text>
-                        </ion-item>
+                      <ion-card style="margin-top: 10px;">
+                          <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-align-items-center">
+                              <ion-col size="10" class="ion-text-start" >
+                                <h2 class="workout-description">{{ workout.description }}</h2>
+                                <ion-text class="workout-cycle" color="medium">{{ workout.cycle }}</ion-text>
+                              </ion-col>
+                              <ion-col size="2" class="ion-text-end" >
+                                <ion-text (click)="presentOneRepMaxPromptAlert(workout.key, weightUnit, oneRepMax[workout.key][weightUnit])" class="one-rep-max" color="primary">{{ oneRepMax[workout.key][weightUnit] || 0 }}</ion-text>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        @for(lift of workout.lifts; let index = $index; let last = $last; track index) {
+                          <ion-item [lines]="last ? 'none' : 'inset'">
+                            <ion-label>
+                              <h1>{{ lift.weight[weightUnit] }} {{ weightUnit }}</h1>
+                            </ion-label>
+                            <ion-text color="medium" slot="end">
+                              {{ lift.percentage | percent }} x{{ lift.reps }}
+                              <span *ngIf="lift.failure">+</span>
+                              <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+                            </ion-text>
+                          </ion-item>
+                        }
                         <ion-card-content></ion-card-content>
                       </ion-card>
                     </div>
@@ -97,8 +107,6 @@
       </div>
     </div>
   }
-
-
     
   @if(!scheduleRequestComplete) {
     <app-schedule-loading></app-schedule-loading>

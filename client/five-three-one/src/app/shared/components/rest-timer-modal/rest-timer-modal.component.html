@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rest Timer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" fill="clear">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar [value]="timerPercent"></ion-progress-bar>
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <h1 style="font-size: 3em;">{{ timerCountdown | timeElapsed }} / {{ timerLength | timeElapsed }}</h1>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="subtractFromRestTimerLength(15)" fill="outline">-15s</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="addToRestTimerLength(15)" fill="outline">+15s</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="subtractFromRestTimerLength(30)" fill="outline">-30s</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="addToRestTimerLength(30)" fill="outline">+30s</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-align-items-center">
+    <ion-col>
+      <ion-button (click)="toggleTimer()" fill="clear" expand="block">
+        @switch(timerState) {
+          @case('stopped') {
+            <span>Start</span>
+          }
+          @case('finished') {
+            <span>Restart</span>
+          }
+          @case('paused') {
+            <span>Resume</span>
+          }
+          @case('progressing') {
+            <span>Pause</span>
+          }
+        }
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="resetTimer()" fill="clear" expand="block">Reset</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+

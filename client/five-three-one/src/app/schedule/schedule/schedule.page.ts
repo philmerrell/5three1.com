@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonRouterOutlet, IonText, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonRouterOutlet, IonRow, IonText, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { settings } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
@@ -40,7 +40,10 @@ import { TodaysCompletedWorkoutComponent } from './components/todays-completed-w
     IonCardHeader,
     IonCard,
     TimeAheadPipe,
-    TodaysCompletedWorkoutComponent
+    TodaysCompletedWorkoutComponent,
+    IonGrid,
+    IonRow,
+    IonCol
   ]
 })
 export class SchedulePage implements OnInit {

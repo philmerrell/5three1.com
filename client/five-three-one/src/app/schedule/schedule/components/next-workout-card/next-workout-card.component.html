@@ -1,17 +1,15 @@
 <ion-card>
   <ion-card-header style="padding: 0;">
-
     <ion-item lines="none">
       <ion-label>
         <ion-card-subtitle>{{ workout.cycle }} <ion-text color="danger">+</ion-text></ion-card-subtitle>
         <ion-card-title>{{ workout.description }}</ion-card-title>
       </ion-label>
-          <div slot="end">
-            <ion-text style="font-size: 1.2em;"color="secondary">{{ oneRepMax[workout.key] }}</ion-text><br>
-            <ion-text color="medium">1RM</ion-text>
-          </div>
+      <div slot="end">
+        <ion-text style="font-size: 1.2em;"color="secondary">{{ oneRepMax[workout.key] }}</ion-text><br>
+        <ion-text color="medium">1RM</ion-text>
+      </div>
     </ion-item>
-
   </ion-card-header>
   <ion-grid>
     <ion-row>

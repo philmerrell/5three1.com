@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Exercises"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Lift</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        Close
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<!-- <ion-content> -->
+  <ion-grid style="margin: 0;">
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form">
+          @if(action === 'edit') {
+            <h1 class="ion-padding">{{ lift.name }}</h1>
+          }
+          @if(action === 'add') {
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input formControlName="name"></ion-input>
+            </ion-item>
+          }
+          <ion-item>
+            <ion-label position="floating">Reps</ion-label>
+            <ion-input formControlName="reps" type="number" inputmode="decimal" min="0"></ion-input>
+          </ion-item>
+          @if(lift && !lift.percentage) {
+            <ion-item>
+              <ion-label position="floating">Weight ({{ unit }})</ion-label>
+              <ion-input formControlName="weight" type="number" inputmode="decimal" min="0"></ion-input>
+            </ion-item>
+          }
+          @if(lift && lift.percentage) {
+            <ion-item lines="none">
+              <ion-label>Weight</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-range formControlName="percentage" (ionChange)="updatePercentage($event)" min="0" max="1" step="0.05">
+                <ion-label slot="start">{{ this.form.controls['percentage'].value | percent }} of 1RM</ion-label>
+              </ion-range>
+            </ion-item>
+          }
+          <ion-item>
+            <ion-label>Barbell Exercise</ion-label>
+            <ion-checkbox formControlName="barbell"></ion-checkbox>
+          </ion-item>
+          @if(lift.complete) {
+            <ion-item>
+              <ion-label>Completed</ion-label>
+              <ion-checkbox formControlName="complete"></ion-checkbox>
+            </ion-item>
+          }
+        </form>
+        <ion-item>
+          <ion-label>Apply To All {{ lift.name }} Lifts</ion-label>
+          <ion-checkbox [(ngModel)]="applyToAll"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    
+    <!-- <pre>
+      {{ lift | json }}
+    </pre> -->
+  </ion-grid>
+<!-- </ion-content> -->
+<ion-footer>
+  <div class="ion-padding">
+    <ion-button (click)="saveExercise()" color="success" fill="solid" expand="block">
+      @if(!lift) {
+        <span>Add Exercise</span>
+      } @else {
+        <span>Save Exercise</span>
+      }
+    </ion-button>
+  </div>
+</ion-footer>
+  
