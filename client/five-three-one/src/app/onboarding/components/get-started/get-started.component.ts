@@ -1,27 +1,36 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { IonNav, IonSlides } from '@ionic/angular';
-import { LearnMoreComponent } from '../learn-more/learn-more.component';
+import { Component, OnInit } from '@angular/core';
 import { OneRepMaxSettingsComponent } from '../one-rep-max-settings/one-rep-max-settings.component';
+import { IonButton, IonCard, IonContent, IonFooter, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonNav, IonNavLink, IonText } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { barbell, body, calendar, options, refresh } from 'ionicons/icons';
 
 @Component({
   selector: 'app-get-started',
   templateUrl: './get-started.component.html',
   styleUrls: ['./get-started.component.scss'],
+  standalone: true,
+  imports: [
+    IonFooter,
+    IonCard,
+    IonContent,
+    IonList,
+    IonListHeader,
+    IonLabel,
+    IonItem,
+    IonIcon,
+    IonNavLink,
+    IonButton,
+    IonText
+  ]
 })
 export class GetStartedComponent implements OnInit {
-  @Input() nav: IonNav;
-  @ViewChild(IonSlides) slides: IonSlides;
+  oneRepMaxSettings = OneRepMaxSettingsComponent
 
-  constructor() { }
+  constructor() {
+    addIcons({ calendar, body, options, refresh, barbell });
+  }
 
   ngOnInit() {}
-
-  learnMore() {
-    this.slides.slideNext();
-  }
-  setOneRepMaxSettings() {
-    this.nav.push(OneRepMaxSettingsComponent, { nav: this.nav });
-  }
 
 
 }

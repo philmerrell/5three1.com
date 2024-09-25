@@ -1,19 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonNav } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { GetStartedComponent } from './components/get-started/get-started.component';
+import { IonNav } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
+  standalone: true,
+  imports: [
+    GetStartedComponent,
+    IonNav
+  ]
 })
 export class OnboardingPage implements OnInit {
-  @ViewChild("nav", { static: true }) nav: IonNav;
-
+  getStartedComponent = GetStartedComponent;
   constructor() { }
 
   async ngOnInit() {
-    await this.nav.setRoot(GetStartedComponent, { nav: this.nav });
+    
   }
 
 }

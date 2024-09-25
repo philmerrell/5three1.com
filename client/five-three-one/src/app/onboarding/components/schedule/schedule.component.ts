@@ -1,16 +1,35 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonNav, ModalController } from '@ionic/angular';
-import { ScheduleService, TargetDay } from '../../../shared/services/schedule.service';
 import { AssistanceTemplatesComponent } from '../assistance-templates/assistance-templates.component';
+import { ScheduleService, TargetDay } from '../../../shared/services/schedule.service';
+import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFooter, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonNavLink, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
+  standalone: true,
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonBackButton,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonListHeader,
+    IonLabel,
+    IonItem,
+    IonCheckbox,
+    IonFooter,
+    IonButton,
+    CommonModule,
+    IonNavLink
+  ]
 })
 export class ScheduleComponent implements OnInit {
-  @Input() nav: IonNav;
-  targetDays: TargetDay[];
+  targetDays: TargetDay[] = [];
+  assistanceTemplate = AssistanceTemplatesComponent;
 
   constructor(
     private modalController: ModalController,
@@ -35,7 +54,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   chooseAssistanceTemplate() {
-    this.nav.push(AssistanceTemplatesComponent, { nav: this.nav });
+    // this.nav.push(AssistanceTemplatesComponent, { nav: this.nav });
   }
 
 }

@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Workout Complete</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" color="danger">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-grid style="width: 100%;">
+  <ion-row>
+    <ion-col size="12"> -->
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h1>Elapsed Time</h1>
+          </ion-label>
+          <ion-text color="secondary">{{ elapsedTime }}</ion-text>
+        </ion-item>
+        <ion-item *ngIf="workout.completedWeight">
+          <ion-label>
+            <h1>Total Weight</h1>
+          </ion-label>
+          <ion-text color="secondary">{{ (workout.completedWeight[unit] | number:'1.0':'en-US') || 0 }} {{ unit }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h1>Total Reps</h1>
+          </ion-label>
+          <ion-text color="secondary">{{ workout.completedReps }}</ion-text>
+        </ion-item>
+      </ion-list>
+    <!-- </ion-col>
+  </ion-row>
+</ion-grid> -->
+<!-- <div *ngIf="personalRecordsProduct && !personalRecordsPurchaseStatus.owned">
+  <ion-list-header *ngIf="isRecord">
+    <ion-text color="warning">You Set a New Personal Record!</ion-text>
+  </ion-list-header>
+  <ion-card (click)="presentProductModal(personalRecordsProduct)" button>
+    <ion-item color="primary" detail>
+      <ion-icon name="trophy" slot="start"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h1>{{ personalRecordsProduct.title }}</h1>
+        <p>{{ personalRecordsProduct.description }}</p>
+      </ion-label>
+      <ion-text slot="end">{{ personalRecordsProduct.price }}</ion-text>
+    </ion-item>
+  </ion-card>
+</div> -->
+
+<div *ngIf="personalRecordsPurchaseStatus.owned">
+  <ion-list-header *ngIf="bestSet && !isRecord">
+    <ion-text color="warning">PR Attempt</ion-text>
+  </ion-list-header>
+  <ion-list *ngIf="bestSet && !isRecord">
+    <ion-item>
+      <ion-label>
+          <h1>Attempt ({{unit}})</h1>
+      </ion-label>
+      <ion-text slot="end" color="secondary">{{ bestSet.weight[unit] }} x {{ bestSet.reps }}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="estimated1RM">
+      <ion-label>
+        <h1>Estimated 1RM</h1>
+      </ion-label>
+      <ion-text slot="end" color="warning">{{ (estimated1RM[unit] | number:'1.0':'en-US') || '-' }}</ion-text>&nbsp;<ion-badge *ngIf="isRecord">PR</ion-badge>
+    </ion-item>
+  </ion-list>
+  <ion-list-header *ngIf="isRecord">
+    <ion-text color="warning">New Personal Record</ion-text>
+  </ion-list-header>
+  <ion-list *ngIf="record && isRecord">
+    <ion-item>
+      <ion-icon name="trophy" slot="start" color="warning"></ion-icon>
+      <ion-label>
+        <h3>{{ record.date | date }}</h3>
+        <h1>{{ record.name }}</h1>
+        <p>{{ record.reps }} x{{ record.weight[unit] }}</p>
+      </ion-label>
+      <ion-text color="warning" slot="end">{{ record.estimated1RM[unit] }}</ion-text>
+    </ion-item>
+  </ion-list>
+</div>
+<div class="ion-padding">
+  <!-- <ion-button (click)="editWorkout(workout)" expand="block" fill="outline">
+    Edit Workout
+  </ion-button> -->
+</div>
+<div style="position: absolute; top:0; bottom: 0; left: 0; right: 0; z-index: -1">
+  <canvas style="height: 100%; width: 100%"></canvas>
+</div>

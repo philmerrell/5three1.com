@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Preferences } from '@capacitor/preferences';
 
-import { Plugins } from '@capacitor/core';
 
-const { Storage } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -14,29 +13,29 @@ export class OnboardingService {
 
   setOnboardingStatus(onboarded: boolean, version: string) {
     const onboardObj = { onboarded: onboarded, version: version};
-    return Storage.set({ key: 'onboarding', value: JSON.stringify(onboardObj)});
+    return Preferences.set({ key: 'onboarding', value: JSON.stringify(onboardObj)});
   }
 
   async getOnboardingStatus() {
-    const status = await Storage.get({ key: 'onboarding'});
+    const status = await Preferences.get({ key: 'onboarding'});
     return status.value ? JSON.parse(status.value) : { onboarded: false };
   }
 
   async removeOnboardingStatus() {
-    return await Storage.remove({ key: 'onboarding' });
+    return await Preferences.remove({ key: 'onboarding' });
   }
 
   setOnboardingAssistanceTemplateStatus(onboarded: boolean) {
     const onboardObj = { onboarded: onboarded };
-    return Storage.set({ key: 'onboarding-assistance-template', value: JSON.stringify(onboardObj) });
+    return Preferences.set({ key: 'onboarding-assistance-template', value: JSON.stringify(onboardObj) });
   }
 
   async getOnboardingAssistanceTemplateStatus() {
-    const status = await Storage.get({ key: 'onboarding-assistance-template' });
+    const status = await Preferences.get({ key: 'onboarding-assistance-template' });
     return status.value ? JSON.parse(status.value) : { onboarded: false }
   }
 
   async removeOnboardingAssistanceTemplateStatus() {
-    return await Storage.remove({ key: 'onboarding-assistance-template' });
+    return await Preferences.remove({ key: 'onboarding-assistance-template' });
   }
 }

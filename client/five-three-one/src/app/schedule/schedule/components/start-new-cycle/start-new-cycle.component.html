@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Start New Cycle</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" fill="clear">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Squat</ion-label>
+        <ion-input formControlName="squat" type="number" inputmode="decimal"></ion-input>
+        <!-- <ion-button (click)="addWeight(5, 'squat')" class="add-weight" slot="end">+5.0</ion-button> -->
+        <!-- <ion-button (click)="addWeight(10, 'squat')" class="add-weight" slot="end">+10</ion-button> -->
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Bench</ion-label>
+        <ion-input formControlName="bench" type="number" inputmode="decimal"></ion-input>
+        <!-- <ion-button (click)="addWeight(2.5, 'bench')" class="add-weight" slot="end">+2.5</ion-button> -->
+        <!-- <ion-button (click)="addWeight(5, 'bench')" class="add-weight" slot="end">+5.0</ion-button> -->
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Deadlift</ion-label>
+        <ion-input formControlName="deadlift" type="number" inputmode="decimal"></ion-input>
+        <!-- <ion-button (click)="addWeight(5, 'deadlift')" class="add-weight" slot="end">+5.0</ion-button> -->
+        <!-- <ion-button (click)="addWeight(10, 'deadlift')" class="add-weight" slot="end">+10</ion-button> -->
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Shoulder Press</ion-label>
+        <ion-input formControlName="shoulderPress" type="number" inputmode="decimal"></ion-input>
+        <!-- <ion-button (click)="addWeight(2.5, 'shoulderPress')" class="add-weight" slot="end">+2.5</ion-button> -->
+        <!-- <ion-button (click)="addWeight(5, 'shoulderPress')" class="add-weight" slot="end">+5.0</ion-button> -->
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <div class="ion-padding">
+    <ion-button (click)="startNewCycle()" expand="block">Start New Cycle</ion-button>
+  </div>
+</ion-footer>

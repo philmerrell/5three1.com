@@ -11,8 +11,99 @@
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
+    <ion-toolbar color="background">
       <ion-title size="large">Schedule</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  @if(todaysCompletedWorkout) {
+    <div>
+      <app-todays-completed-workout [workout]="todaysCompletedWorkout" [unit]="weightUnit"></app-todays-completed-workout>
+      <!-- <pre> {{ todaysCompletedWorkout | json }}</pre> -->
+    </div>
+  }
+  @if(schedule.length && oneRepMax) {
+    <div>
+      @if(nextWorkout || workoutInProgress === nextWorkout.id) {
+        <div>
+          <h4 style="margin-left: 20px; padding: 0; margin-bottom: 0;">{{ nextWorkout.targetDate | timeAhead }}</h4>
+          <ion-card *ngIf="nextWorkout" style="margin-top: 10px;">
+            <ion-card-header>
+              <ion-card-subtitle color="medium">{{ nextWorkout.cycle }}</ion-card-subtitle>
+              <ion-card-title style="display: inline-block;">{{ nextWorkout.description }}</ion-card-title>
+              <ion-text (click)="presentOneRepMaxPromptAlert(nextWorkout.key, weightUnit, oneRepMax[nextWorkout.key][weightUnit])" style="float: right; font-size: 1.4em; font-weight: 500;" color="warning">{{ oneRepMax[nextWorkout.key][weightUnit] || 0 }}</ion-text>
+            </ion-card-header>
+            @for(lift of nextWorkout.lifts; let index = $index; track index) {
+              <ion-item>
+                <ion-label>
+                  <h1>{{ lift.weight[weightUnit] }} {{ weightUnit }}</h1>
+                </ion-label>
+                <ion-text color="medium" slot="end">
+                  {{ lift.percentage | percent }} x{{ lift.reps }}
+                  <span *ngIf="lift.failure">+</span>
+                  <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+                </ion-text>
+              </ion-item>
+            }
+            <ion-card-content>
+              <ion-button
+                [routerLink]="'/tabs/schedule/workout/' + nextWorkout.id" color="warning"
+                expand="block">
+                  <span *ngIf="workoutInProgress !== nextWorkout.id" style="font-weight: 700;">Start Workout</span>
+                  <span *ngIf="workoutInProgress === nextWorkout.id" style="font-weight: 700;">In Progress</span>
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      }
+      @for(cycle of schedule; track cycleIndex; let firstCycle = $first; let cycleIndex = $index) {
+        <div>
+          @for(workout of cycle.schedule; track i; let i = $index;) {
+            <div>
+              @if(!cycle.datetimeCompleted) {
+                <div>
+                  @if(!workout.datetimeCompleted && workout.id !== nextWorkout.id) {
+                    <div>
+                      <h4 style="margin-left: 20px; padding: 0; margin-bottom: 0;">{{ workout.targetDate | timeAhead }}</h4>
+          
+                      <ion-card style="margin-top: 5px;">
+                        <ion-card-header>
+                          <ion-card-subtitle color="medium">{{ workout.cycle }}</ion-card-subtitle>
+                          <ion-card-title style="display: inline-block;">{{ workout.description }}</ion-card-title>
+                          <ion-text (click)="presentOneRepMaxPromptAlert(workout.key, weightUnit, oneRepMax[workout.key][weightUnit])" style="float: right; font-size: 1.4em; font-weight: 500;" color="warning">{{ oneRepMax[workout.key][weightUnit] || 0 }}</ion-text>
+                        </ion-card-header>
+                        <ion-item *ngFor="let lift of workout.lifts">
+                          <ion-label>
+                            <h1>{{ lift.weight[weightUnit] }} {{ weightUnit }}</h1>
+                          </ion-label>
+                          <ion-text color="medium" slot="end">
+                            {{ lift.percentage | percent }} x{{ lift.reps }}
+                            <span *ngIf="lift.failure">+</span>
+                            <span *ngIf="!lift.failure">&nbsp;&nbsp;</span>
+                          </ion-text>
+                        </ion-item>
+                        <ion-card-content></ion-card-content>
+                      </ion-card>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+      <div class="ion-padding">
+        <ion-button (click)="presentStartNewCycleModal()" expand="block" color="warning" size="large">Start New Cycle</ion-button>
+      </div>
+    </div>
+  }
+
+
+    
+  @if(!scheduleRequestComplete) {
+    <app-schedule-loading></app-schedule-loading>
+  }
+
+  
+
 </ion-content>

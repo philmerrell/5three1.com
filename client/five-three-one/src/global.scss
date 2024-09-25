@@ -35,3 +35,30 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.rest-timer-modal {
+    --ion-safe-area-top: 0;
+    --max-height: 50%;
+    align-items: flex-end;
+  }
+  
+  ion-content {
+    --background: var(--ion-color-background);
+  }
+  
+  // TEMP FIX: https://github.com/ionic-team/ionic-framework/issues/20614
+  
+  .ion-cloned-element.ios.title-default {
+    padding-top: 0px;
+    bottom: 0px;
+    align-items: flex-end;
+    min-width: 100%;
+    padding-bottom: 6px;
+    font-size: 34px;
+    font-weight: 700;
+    text-align: start;
+    padding-left: unset;
+    padding-right: unset;
+    padding-inline-start: 16px;
+    padding-inline-end: 16px;
+  }

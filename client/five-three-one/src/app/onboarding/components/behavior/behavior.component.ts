@@ -1,12 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { PushNotificationService } from '../../../shared/services/push-notification.service';
-import { ScreenService } from '../../../shared/services/screen.service';
+import { FormsModule } from '@angular/forms';
+import { ModalController, AlertController, IonBackButton, IonButton, IonButtons, IonCard, IonContent, IonFooter, IonHeader, IonItem, IonLabel, IonTitle, IonToggle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-behavior',
   templateUrl: './behavior.component.html',
   styleUrls: ['./behavior.component.scss'],
+  standalone: true,
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonBackButton,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonItem,
+    IonLabel,
+    IonToggle,
+    IonFooter,
+    IonButton,
+    FormsModule
+  ]
 })
 export class BehaviorComponent implements OnInit {
   alertPresented = false;
@@ -19,14 +34,12 @@ export class BehaviorComponent implements OnInit {
   };
   
   constructor(
-    private screenService: ScreenService,
-    private pushNotificationService: PushNotificationService,
     private modalController: ModalController,
     private alertController: AlertController) { }
 
   async ngOnInit() {
-    this.restTimerNotificationsSetting = await this.pushNotificationService.getRestTimerNotificationsEnabledSetting();
-    this.keepScreenOn = await this.screenService.getKeepScreenOnSetting();
+    // this.restTimerNotificationsSetting = await this.pushNotificationService.getRestTimerNotificationsEnabledSetting();
+    // this.keepScreenOn = await this.screenService.getKeepScreenOnSetting();
   }
 
   finish() {
@@ -34,25 +47,25 @@ export class BehaviorComponent implements OnInit {
   }
 
   async handleNotificationsToggle() {
-    const areEnabled = await this.pushNotificationService.areEnabled();
-    if (areEnabled.value) {
-      this.pushNotificationService.setRestTimerNotificationsEnabledSetting(this.restTimerNotificationsSetting.isEnabled)
-    } else {
-      const permission = await this.pushNotificationService.requestPermission();
-      if (permission.granted) {
-        this.pushNotificationService.setRestTimerNotificationsEnabledSetting(true);
-      } else {
-        // Permission not granted
-        // Open alert informing user to open settings and enable push notifications for app.
-        if (!this.alertPresented) {
-          this.presentNotificationsDisabledAlert();
-          this.restTimerNotificationsSetting.isEnabled = false;
-          this.pushNotificationService.setRestTimerNotificationsEnabledSetting(false);
-          this.alertPresented = true;
-        }
-      }
+  //   const areEnabled = await this.pushNotificationService.areEnabled();
+  //   if (areEnabled.value) {
+  //     this.pushNotificationService.setRestTimerNotificationsEnabledSetting(this.restTimerNotificationsSetting.isEnabled)
+  //   } else {
+  //     const permission = await this.pushNotificationService.requestPermission();
+  //     if (permission.granted) {
+  //       // this.pushNotificationService.setRestTimerNotificationsEnabledSetting(true);
+  //     } else {
+  //       // Permission not granted
+  //       // Open alert informing user to open settings and enable push notifications for app.
+  //       if (!this.alertPresented) {
+  //         this.presentNotificationsDisabledAlert();
+  //         this.restTimerNotificationsSetting.isEnabled = false;
+  //         // this.pushNotificationService.setRestTimerNotificationsEnabledSetting(false);
+  //         this.alertPresented = true;
+  //       }
+  //     }
 
-    }
+  //   }
   }
 
   async presentNotificationsDisabledAlert() {
@@ -79,11 +92,11 @@ export class BehaviorComponent implements OnInit {
   }
 
   async openSettings() {
-    this.pushNotificationService.openSettings();
+    // this.pushNotificationService.openSettings();
   }
 
   handleScreenToggle() {
-    this.screenService.setKeepScreenOnSetting(this.keepScreenOn.isEnabled);
+    // this.screenService.setKeepScreenOnSetting(this.keepScreenOn.isEnabled);
   }
 
 

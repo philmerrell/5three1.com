@@ -1,0 +1,46 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle color="medium">{{ workout.description }}</ion-card-subtitle>
+    <ion-card-title>Workout Complete</ion-card-title>
+  </ion-card-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>
+            <p>Total Reps</p>
+            <ion-text color="success">{{ (workout.completedReps | number:'1.0':'en-US') || 0 }} / {{ workout.totalWorkoutReps | number:'1.0':'en-US'}}</ion-text>
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="workout.completedWeight">
+          <ion-label>
+            <p>Total Weight ({{unit}})</p>
+            <ion-text color="primary">{{ (workout.completedWeight[unit] | number:'1.0':'en-US') || 0  }} / {{ (workout.totalWorkoutWeight[unit] | number:'1.0':'en-US') || 0}}</ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item *ngIf="bestSet">
+          <ion-label>
+            <p>PR Attempt ({{unit}})</p>
+            <ion-text color="secondary">{{ bestSet.weight[unit] }} x {{ bestSet.reps }}</ion-text>
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="estimated1RM">
+          <ion-label>
+            <p>Estimated 1RM</p>
+            <ion-text *ngIf="personalRecordsPurchaseStatus.owned" color="warning">{{ (estimated1RM[unit] | number:'1.0':'en-US') || '-' }}</ion-text>
+            <ion-text *ngIf="!personalRecordsPurchaseStatus.owned" (click)="presentPurchaseProductModal()" color="warning">Unlock</ion-text>
+            &nbsp;<ion-badge *ngIf="isRecord">PR</ion-badge>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-card-content>
+    <ion-button (click)="showWorkoutCompleteModal()" color="primary" expand="block">
+        View Results
+    </ion-button>
+  </ion-card-content>
+</ion-card>
