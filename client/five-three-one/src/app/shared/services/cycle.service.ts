@@ -72,8 +72,8 @@ export interface Lift {
     kg: number;
   };
   plates?: {
-    lb: any[],
-    kg: any[] 
+    lb: any,
+    kg: any 
   };
   barbell: boolean;
 }

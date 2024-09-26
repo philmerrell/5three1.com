@@ -73,8 +73,8 @@
                     }
                   </small>
                 </h1>
-                @if(purchaseStatus.plateCalculator.owned) {
-                  <ion-text color="medium" slot="end">
+                <!-- @if(purchaseStatus.plateCalculator.owned) { -->
+                  <ion-text color="medium" >
                     <span style="font-size: 0.9em;">Plates: </span>
                     @for(plate of lift.plates[weightUnit]; let last = $last; let index = $index; track index) {
                       <span>
@@ -82,13 +82,11 @@
                         @if(plate.qty > 2) {
                           <span> x {{ plate.qty / 2 }}</span>
                         }
-                        @if(!last) {
-                          <span>,</span>
-                        }
+                        @if(!last) { <span>,</span> }
                       </span>
                     }
                   </ion-text>
-                }
+                <!-- } -->
               </ion-label>
               @if(lift.id !== latestCompletedLiftId) {
                 <ion-button (click)="completeLift(lift)" [disabled]="lift.complete" slot="end" [fill]="lift.complete ? 'clear' : 'solid'" [color]="lift.complete ? 'dark' : 'success'" aria-label="Complete lift">
@@ -125,7 +123,7 @@
                   </small>
                 </h1>
                 @if(purchaseStatus.plateCalculator.owned) {
-                  <ion-text color="medium" slot="end">
+                  <ion-text color="medium">
                     <span style="font-size: 0.9em;">Plates: </span>
                     @for(plate of lift.plates[weightUnit]; let last = $last; let index = $index; track index) {
                       <span>
@@ -189,7 +187,7 @@
                   </small>
                 </h1>
                 @if(purchaseStatus.plateCalculator.owned) {
-                  <ion-text color="medium" slot="end">
+                  <ion-text color="medium">
                     <span style="font-size: 0.9em;">Plates: </span>
                     @for(plate of lift.plates[weightUnit]; let index = $index; let last = $last; track index) {
                       <span>

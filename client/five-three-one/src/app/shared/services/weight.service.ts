@@ -51,16 +51,7 @@ export interface WeightIncrement {
 export class WeightService {
   trainingPercentageSubject: BehaviorSubject<number> = new BehaviorSubject(0.9);
   weightUnitSubject: BehaviorSubject<{unit: 'lb' | 'kg'}> = new BehaviorSubject<{unit: 'lb' | 'kg'}>({unit: 'lb'});
-  barbellAndWeights: BarbellAndWeights = { 
-    barbellWeight: {
-      lb: 0,
-      kg: 0
-    },
-    weights: {
-      lb: [],
-      kg: []
-    }
-  }
+  barbellAndWeights: BarbellAndWeights;
   barbellAndWeightsSubject: BehaviorSubject<BarbellAndWeights> = new BehaviorSubject({} as BarbellAndWeights);
   oneRepMaxSubject: BehaviorSubject<OneRepMax> = new BehaviorSubject({squat: {lb: 0, kg: 0}, bench: {lb: 0, kg: 0}, deadlift: {lb: 0, kg: 0}, shoulderPress: {lb: 0, kg: 0} });
   weightIncrementSubject: BehaviorSubject<WeightIncrement> = new BehaviorSubject({ lb: 5.0, kg: 0.5 });

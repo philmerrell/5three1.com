@@ -211,6 +211,7 @@ export class WorkoutPage implements OnInit, OnDestroy {
       cycles.forEach((cycle, i) => {
         const found = cycle.schedule.find(workout => workout.id === this.id);
         if (found) {
+          console.log(found);
           this.workout = found;
           this.workoutService.startWorkout(this.workout);
           if (!cycle.datetimeStarted) {
