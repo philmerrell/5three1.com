@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Client
         run: |
-          cd client && ng build --configuration=production
+          cd client/five-three-one && ng build --configuration=production
 
       - name: Install cdk
         run: |
