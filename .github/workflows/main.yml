@@ -37,7 +37,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install Client Dependencies
         run: |
-          cd client
+          cd client/five-three-one
           sudo npm install -g @angular/cli > /dev/null
           sudo npm install 
 
