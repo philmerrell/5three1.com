@@ -5,6 +5,8 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as s3Deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
 import { Construct } from 'constructs';
+import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
+import { S3BucketOrigin, S3Origin, S3StaticWebsiteOrigin } from 'aws-cdk-lib/aws-cloudfront-origins';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class InfrastructureStack extends cdk.Stack {
@@ -12,7 +14,7 @@ export class InfrastructureStack extends cdk.Stack {
     super(scope, id, props);
 
     const domain = 'www.5three1.com';
-    const sslCertArn = process.env.SSL_CERT_ARN;
+    const sslCertArn: string = process.env.SSL_CERT_ARN || '';
 
     // this should use the accountID to perform the lookup so it gets the sand zoneID and not the prod
     const zone = route53.HostedZone.fromLookup(this, 'GetHostedZone', {
@@ -27,43 +29,41 @@ export class InfrastructureStack extends cdk.Stack {
     // Content bucket for the site - empty
     const siteBucket = new s3.Bucket(this, 'SiteBucket', {
       bucketName: domain,
-      websiteIndexDocument: 'index.html',
-      publicReadAccess: true,
+      accessControl: s3.BucketAccessControl.PRIVATE,
       removalPolicy: cdk.RemovalPolicy.DESTROY, // NOT recommended for production code
     });
     new cdk.CfnOutput(this, 'Bucket', { value: siteBucket.bucketName });
 
+    const oia = new cloudfront.OriginAccessIdentity(this, 'CloudfrontOriginIdentity');
+    siteBucket.grantRead(oia);
+
+    const cert = Certificate.fromCertificateArn(this, 'GetCert', sslCertArn);
+
+    const s3Origin = new S3Origin(siteBucket, { originAccessIdentity: oia })
+    // const s3BucketOrigin = new S3StaticWebsiteOrigin(siteBucket, {})
     // CloudFront distribution that provides HTTPS
-    const distribution = new cloudfront.CloudFrontWebDistribution(this, 'SiteDistribution', {
+    const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
       defaultRootObject: 'index.html',
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
-      viewerCertificate: {
-        aliases: [domain],
-        props: {
-          acmCertificateArn: sslCertArn,
-          sslSupportMethod: 'sni-only',
-          minimumProtocolVersion: 'TLSv1.2_2021'
-        }
+      domainNames: [domain],
+      certificate: cert,
+      defaultBehavior: {
+        origin: s3Origin,
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+        cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD,
+        cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+        originRequestPolicy: cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN
       },
-      originConfigs: [
+      errorResponses: [
         {
-          s3OriginSource: {
-            s3BucketSource: siteBucket
-          },
-          behaviors: [{ isDefaultBehavior: true }],
-        }
-      ],
-      errorConfigurations: [
-        {
-          errorCode: 404,
-          errorCachingMinTtl: 300,
-          responseCode: 200,
+          httpStatus: 403,
+          responseHttpStatus: 200,
           responsePagePath: '/index.html'
         },
         {
-          errorCode: 403,
-          errorCachingMinTtl: 300,
-          responseCode: 200,
+          httpStatus: 404,
+          responseHttpStatus: 200,
           responsePagePath: '/index.html'
         }
       ]
@@ -83,7 +83,6 @@ export class InfrastructureStack extends cdk.Stack {
       sources: [s3Deploy.Source.asset('../client/five-three-one/www')],
       destinationBucket: siteBucket,
       distribution,
-      memoryLimit: 512,
       distributionPaths: ['/*'],
     });
   }
