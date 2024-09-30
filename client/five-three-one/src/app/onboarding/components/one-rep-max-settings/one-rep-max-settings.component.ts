@@ -6,7 +6,7 @@ import { BehaviorComponent } from '../behavior/behavior.component';
 import { OneRepMax, WeightService } from '../../../shared/services/weight.service';
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonCheckbox, IonFooter, IonButton, IonRadioGroup, IonRadio, IonInput, IonNavLink, ModalController } from '@ionic/angular/standalone';
 
-interface OneRepMaxForm {
+export interface OneRepMaxForm {
   squat: FormControl<number>;
   bench: FormControl<number>;
   deadlift: FormControl<number>;
@@ -46,7 +46,7 @@ export class OneRepMaxSettingsComponent implements OnInit {
     bench: [0, Validators.min(0)],
     deadlift: [0, Validators.min(0)],
     shoulderPress: [0, Validators.min(0)]
-  });;
+  });
   unit: 'lb' | 'kg' = 'lb';
   behaviorComponent = BehaviorComponent;
 
@@ -60,6 +60,7 @@ export class OneRepMaxSettingsComponent implements OnInit {
   }
 
   finish() {
+    this.setOneRepMax();
     this.modalController.dismiss({ onboarded: true });
   }
 
@@ -69,12 +70,12 @@ export class OneRepMaxSettingsComponent implements OnInit {
 
   getOneRepMaxWeights() {
     return this.weightService.getOneRepMaxObservable();
-    
   }
 
   setOneRepMax() {
     const value = this.form.value;
     const result = this.convertWeights(value);
+    console.log(result);
     this.weightService.setOneRepMax(result);
   }
 

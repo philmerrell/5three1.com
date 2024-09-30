@@ -1,7 +1,7 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, ModalController, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { square, calendar, barChart } from 'ionicons/icons';
+import { square, calendar, barChart, settings } from 'ionicons/icons';
 import { OnboardingPage } from '../onboarding/onboarding.page';
 import { OnboardingService } from '../onboarding/onboarding.service';
 
@@ -20,7 +20,7 @@ export class TabsPage {
     private modalController: ModalController,
     private routerOutlet: IonRouterOutlet,
     private onboardingService: OnboardingService) {
-    addIcons({ calendar, barChart, square });
+    addIcons({ calendar, barChart, settings });
   }
 
   async ngOnInit() {

@@ -128,6 +128,7 @@ export class WeightService {
 
   setOneRepMax(oneRepMax: OneRepMax) {
     this.oneRepMaxSubject.next(oneRepMax);
+    console.log(oneRepMax);
     return Preferences.set({ key: 'oneRepMax', value: JSON.stringify(oneRepMax)})
   }
 

@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Settings" defaultHref="tabs/settings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>1RM Weight</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="background">
+      <ion-title size="large">1RM Weight</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-item color="background">
+    <!-- <ion-icon slot="start" name="bulb" color="secondary"></ion-icon> -->
+    <ion-label class="ion-text-wrap">
+      <ion-text>
+        <b>Tip:</b> The 5/3/1 workout is all based on percentages of your one rep max for the four core lifts. Input the maximum weight for each of your lifts.
+      </ion-text>
+    </ion-label>
+    <!-- <ion-button  slot="end" fill="clear" size="medium">OK</ion-button> -->
+  </ion-item>
+  <ion-card>
+      <form [formGroup]="form">
+        <ion-list>
+          <ion-list-header>
+            <ion-label color="warning">
+              One Rep Max
+            </ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label position="stacked">Squat</ion-label>
+            <ion-input formControlName="squat" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Bench</ion-label>
+            <ion-input formControlName="bench" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Deadlift</ion-label>
+            <ion-input formControlName="deadlift" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Shoulder Press</ion-label>
+            <ion-input formControlName="shoulderPress" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+          </ion-item>
+        </ion-list>
+      </form>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <div class="ion-padding">
+    <ion-button (click)="setOneRepMax()" expand="block">Save</ion-button>
+  </div>
+</ion-footer>

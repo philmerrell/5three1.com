@@ -22,14 +22,21 @@ export const routes: Routes = [
           import('../schedule/workout/workout.page').then( m => m.WorkoutPage)
       },
       {
+        path: 'settings',
+        loadComponent: () => import('../settings/settings/settings.page').then( m => m.SettingsPage)
+      },
+      {
+        path: 'settings/one-rep-max-weight',
+        loadComponent: () => import('../settings/one-rep-max-weight/one-rep-max-weight.page').then( m => m.OneRepMaxWeightPage)
+      },
+      {
+        path: 'settings/schedule',
+        loadComponent: () => import('../settings/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),
-      },
-      {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
         path: '',
