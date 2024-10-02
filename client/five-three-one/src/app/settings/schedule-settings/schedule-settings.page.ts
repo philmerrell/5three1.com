@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 })
 export class ScheduleSettingsPage implements OnInit {
   targetDays: TargetDay[];
+  backButtonDefaultHref = '';
+  backButtonText = '';
 
   constructor(
     private alertController: AlertController,
@@ -27,6 +29,7 @@ export class ScheduleSettingsPage implements OnInit {
 
   async ngOnInit() {
     this.targetDays = await this.scheduleService.getTargetDays();
+    this.setBackButtonDefaults();
   }
 
   async ionViewDidEnter() {
@@ -81,6 +84,18 @@ export class ScheduleSettingsPage implements OnInit {
       ]
     });
     toast.present();
+  }
+
+  private setBackButtonDefaults() {
+    if(window.location.pathname.includes('schedule')) {
+      this.backButtonDefaultHref = '/tabs/schedule';
+      this.backButtonText = 'Schedule';
+    } else {
+      //  /tabs/settings
+      this.backButtonDefaultHref = '/tabs/settings';
+      this.backButtonText = 'Settings';
+      
+    }
   }
 
 }

@@ -14,7 +14,7 @@ export const routes: Routes = [
       {
         path: 'schedule/schedule-settings',
         loadComponent: () => 
-          import('../schedule/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
+          import('../settings/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
       },
       {
         path: 'schedule/workout/:id',
