@@ -13,15 +13,22 @@
       <ion-title size="large">Training Percent</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item color="background">
+    <ion-label>
+      Training percentage is used calculate weight for each cycle's core lifts. A 90% percentage is recommended, but can be customized to suit your needs.
+    </ion-label>
+  </ion-item>
   @if(trainingPercentage$ | async; as trainingPercentage) {
-    <ion-list>
-      <ion-radio-group (ionChange)="setTrainingPercentage($event)" [value]="trainingPercentage">
-        @for(value of [1, .95, .9, .85, .8]; let index = $index; track index) {
-          <ion-item>
-            <ion-radio justify="space-between" [value]="value">{{ value | percent }}</ion-radio>
-          </ion-item>
-        }
-      </ion-radio-group>
-    </ion-list>
+    <ion-card>
+      <ion-list>
+        <ion-radio-group (ionChange)="setTrainingPercentage($event)" [value]="trainingPercentage">
+          @for(value of [1, .95, .9, .85, .8]; let index = $index; track index) {
+            <ion-item>
+              <ion-radio justify="space-between" [value]="value">{{ value | percent }}</ion-radio>
+            </ion-item>
+          }
+        </ion-radio-group>
+      </ion-list>
+    </ion-card>
   }
 </ion-content>

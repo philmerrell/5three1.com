@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule, PercentPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonItem, IonList, IonRadio, IonRadioGroup, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonRadio, IonRadioGroup, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
 import { WeightService } from '../../shared/services/weight.service';
 
@@ -10,7 +9,7 @@ import { WeightService } from '../../shared/services/weight.service';
   templateUrl: './training-percent.page.html',
   styleUrls: ['./training-percent.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonBackButton, IonRadioGroup, IonRadio, IonItem, PercentPipe, AsyncPipe]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonBackButton, IonRadioGroup, IonRadio, IonItem, PercentPipe, AsyncPipe, IonCard, IonLabel]
 })
 export class TrainingPercentPage implements OnInit {
   trainingPercentage$: Observable<number>;
