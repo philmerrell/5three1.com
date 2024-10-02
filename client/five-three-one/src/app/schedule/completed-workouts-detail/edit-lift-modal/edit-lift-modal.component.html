@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Exercises"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Lift</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        Close
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  <ion-grid style="margin: 0;">
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form">
+          <h1 class="ion-padding">{{ lift.name }}</h1>
+          
+          <ion-item>
+            <ion-label position="floating">Reps</ion-label>
+            <ion-input formControlName="reps" type="number" inputmode="decimal" min="0"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Weight ({{ unit }})</ion-label>
+            <ion-input formControlName="weight" type="number" inputmode="decimal" min="0"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox formControlName="complete" justify="space-between">Completed</ion-checkbox>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+<ion-footer>
+  <div class="ion-padding">
+    <ion-button (click)="saveLift()" color="success" fill="solid" expand="block">
+      Save Lift
+    </ion-button>
+  </div>
+</ion-footer>
+  

@@ -26,6 +26,10 @@ export const routes: Routes = [
         loadComponent: () => import('../schedule/completed-workouts/completed-workouts.page').then( m => m.CompletedWorkoutsPage)
       },
       {
+        path: 'schedule/completed-workouts/:id',
+        loadComponent: () => import('../schedule/completed-workouts-detail/completed-workouts-detail.page').then( m => m.CompletedWorkoutsDetailPage)
+      },
+      {
         path: 'settings',
         loadComponent: () => import('../settings/settings/settings.page').then( m => m.SettingsPage)
       },
@@ -40,6 +44,10 @@ export const routes: Routes = [
       {
         path: 'settings/completed-workouts',
         loadComponent: () => import('../schedule/completed-workouts/completed-workouts.page').then( m => m.CompletedWorkoutsPage)
+      },
+      {
+        path: 'settings/completed-workouts/:id',
+        loadComponent: () => import('../schedule/completed-workouts-detail/completed-workouts-detail.page').then( m => m.CompletedWorkoutsDetailPage)
       },
       {
         path: 'tab2',
