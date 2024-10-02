@@ -22,6 +22,10 @@ export const routes: Routes = [
           import('../schedule/workout/workout.page').then( m => m.WorkoutPage)
       },
       {
+        path: 'schedule/completed-workouts',
+        loadComponent: () => import('../schedule/completed-workouts/completed-workouts.page').then( m => m.CompletedWorkoutsPage)
+      },
+      {
         path: 'settings',
         loadComponent: () => import('../settings/settings/settings.page').then( m => m.SettingsPage)
       },
@@ -32,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'settings/schedule',
         loadComponent: () => import('../settings/schedule-settings/schedule-settings.page').then( m => m.ScheduleSettingsPage)
+      },
+      {
+        path: 'settings/completed-workouts',
+        loadComponent: () => import('../schedule/completed-workouts/completed-workouts.page').then( m => m.CompletedWorkoutsPage)
       },
       {
         path: 'tab2',

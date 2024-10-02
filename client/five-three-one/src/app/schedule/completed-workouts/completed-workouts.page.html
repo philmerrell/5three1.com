@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Completed Workouts</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/settings/schedule"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Completed Workouts</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    @for(workout of finishedWorkouts; track workout.id) {
+      <ion-item [routerLink]="'/tabs/schedule/completed-workouts/'+ workout.id" detail>
+        <ion-label>
+          <h1>{{ workout.description }}</h1>
+          <p>{{ workout.datetimeCompleted | date }}</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>
