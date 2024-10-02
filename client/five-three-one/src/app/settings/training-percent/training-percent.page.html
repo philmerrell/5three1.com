@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Training Percent</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/settings" text="Settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="background">
+      <ion-title size="large">Training Percent</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  @if(trainingPercentage$ | async; as trainingPercentage) {
+    <ion-list>
+      <ion-radio-group (ionChange)="setTrainingPercentage($event)" [value]="trainingPercentage">
+        @for(value of [1, .95, .9, .85, .8]; let index = $index; track index) {
+          <ion-item>
+            <ion-radio justify="space-between" [value]="value">{{ value | percent }}</ion-radio>
+          </ion-item>
+        }
+      </ion-radio-group>
+    </ion-list>
+  }
+</ion-content>

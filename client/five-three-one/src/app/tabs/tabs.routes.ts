@@ -54,6 +54,10 @@ export const routes: Routes = [
         loadComponent: () => import('../settings/weight-precision/weight-precision.page').then( m => m.WeightPrecisionPage)
       },
       {
+        path: 'settings/training-percent',
+        loadComponent: () => import('../settings/training-percent/training-percent.page').then( m => m.TrainingPercentPage)
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),
