@@ -66,6 +66,10 @@ export const routes: Routes = [
         loadComponent: () => import('../settings/assistance-work/assistance-work.page').then( m => m.AssistanceWorkPage)
       },
       {
+        path: 'settings/assistance-work-template/:id',
+        loadComponent: () => import('../settings/assistance-work-template/assistance-work-template.page').then( m => m.AssistanceWorkTemplatePage)
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),

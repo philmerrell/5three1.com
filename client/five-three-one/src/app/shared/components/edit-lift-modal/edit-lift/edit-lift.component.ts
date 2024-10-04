@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
 import { v4 as uuidv4 } from 'uuid';
 import { Lift } from '../../../services/cycle.service';
 import { WeightService } from '../../../services/weight.service';
-import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonCol, IonFooter, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonRange, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonCol, IonFooter, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonRange, IonRow, IonTitle, IonToolbar, ModalController } from '@ionic/angular/standalone';
 import { PercentPipe } from '@angular/common';
 
 

@@ -1,0 +1,189 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Template</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/settings" text="Settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Template</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if(template) {
+    <div class="ion-padding">
+      <h1>{{ template.name }}</h1>
+      <p>{{ template.description }}</p>
+    </div>
+  }
+  @if(weightUnit$ | async; as weightUnit) {
+      <!-- <pre>
+        {{ weightUnit | json }}
+        {{ template.lifts.squat | json }}
+      </pre> -->
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="warning">
+            Squat Assistance Work
+          </ion-text>
+        </ion-list-header>
+        @for(lift of template.lifts.squat; let i = $index; track i) {
+          <ion-item>
+            <ion-text slot="start">{{ i + 1 }}</ion-text>
+            <ion-label>
+              <h1>{{ lift.name }}</h1>
+              @if(!lift.percentage) {
+                <h3>
+                  Weight: 
+                  @if(lift.weight[weightUnit.unit] === 0) {
+                    <span>-</span>
+                  }
+                  @if(lift.weight[weightUnit.unit] > 0) {
+                    <span>{{ lift.weight[weightUnit.unit] }}</span>
+                  }
+                </h3>
+              }
+              <ion-text color="medium" slot="end">
+                Reps: {{ lift.reps }}
+                @if(lift.failure) {
+                  <span>+</span>
+                }
+                @if(!lift.failure) {
+                  <span>&nbsp;&nbsp;</span>
+                }
+              </ion-text>
+            </ion-label>
+            @if(isCurrentTemplate) {
+              <ion-button (click)="openExerciseModal(weightUnit.unit, 'squat', lift)" size="medium" fill="clear">Edit</ion-button>
+            }
+          </ion-item>
+        }
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="warning">
+            Bench Assistance Work
+          </ion-text>
+        </ion-list-header>
+        @for(lift of template.lifts.bench; let i = $index; track i) {
+          <ion-item>
+            <ion-text slot="start">{{ i + 1 }}</ion-text>
+            <ion-label>
+              <h1>{{ lift.name }}</h1>
+              @if(!lift.percentage) {
+                <h3>
+                  Weight: 
+                  @if(lift.weight[weightUnit.unit] === 0) {
+                    <span>-</span>
+                  }
+                  @if(lift.weight[weightUnit.unit] > 0) {
+                    <span>{{ lift.weight[weightUnit.unit] }}</span>
+                  }
+                </h3>
+              }
+              <ion-text color="medium" slot="end">
+                Reps: {{ lift.reps }}
+                @if(lift.failure) {
+                  <span>+</span>
+                }
+                @if(!lift.failure) {
+                  <span>&nbsp;&nbsp;</span>
+                }
+              </ion-text>
+            </ion-label>
+            @if(isCurrentTemplate) {
+              <ion-button (click)="openExerciseModal(weightUnit.unit, 'squat', lift)" size="medium" fill="clear">Edit</ion-button>
+            }
+          </ion-item>
+        }
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="warning">
+            Deadlift Assistance Work
+          </ion-text>
+        </ion-list-header>
+        @for(lift of template.lifts.deadlift; let i = $index; track i) {
+          <ion-item>
+            <ion-text slot="start">{{ i + 1 }}</ion-text>
+            <ion-label>
+              <h1>{{ lift.name }}</h1>
+              @if(!lift.percentage) {
+                <h3>
+                  Weight: 
+                  @if(lift.weight[weightUnit.unit] === 0) {
+                    <span>-</span>
+                  }
+                  @if(lift.weight[weightUnit.unit] > 0) {
+                    <span>{{ lift.weight[weightUnit.unit] }}</span>
+                  }
+                </h3>
+              }
+              <ion-text color="medium" slot="end">
+                Reps: {{ lift.reps }}
+                @if(lift.failure) {
+                  <span>+</span>
+                }
+                @if(!lift.failure) {
+                  <span>&nbsp;&nbsp;</span>
+                }
+              </ion-text>
+            </ion-label>
+            @if(isCurrentTemplate) {
+              <ion-button (click)="openExerciseModal(weightUnit.unit, 'squat', lift)" size="medium" fill="clear">Edit</ion-button>
+            }
+          </ion-item>
+        }
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          <ion-text color="warning">
+            Shoulder Press Assistance Work
+          </ion-text>
+        </ion-list-header>
+        @for(lift of template.lifts.shoulderPress; let i = $index; track i) {
+          <ion-item>
+            <ion-text slot="start">{{ i + 1 }}</ion-text>
+            <ion-label>
+              <h1>{{ lift.name }}</h1>
+              @if(!lift.percentage) {
+                <h3>
+                  Weight: 
+                  @if(lift.weight[weightUnit.unit] === 0) {
+                    <span>-</span>
+                  }
+                  @if(lift.weight[weightUnit.unit] > 0) {
+                    <span>{{ lift.weight[weightUnit.unit] }}</span>
+                  }
+                </h3>
+              }
+              <ion-text color="medium" slot="end">
+                Reps: {{ lift.reps }}
+                @if(lift.failure) {
+                  <span>+</span>
+                }
+                @if(!lift.failure) {
+                  <span>&nbsp;&nbsp;</span>
+                }
+              </ion-text>
+            </ion-label>
+            @if(isCurrentTemplate) {
+              <ion-button (click)="openExerciseModal(weightUnit.unit, 'squat', lift)" size="medium" fill="clear">Edit</ion-button>
+            }
+          </ion-item>
+        }
+      </ion-list>
+  }
+</ion-content>
+
+@if(!isCurrentTemplate) {
+  <ion-footer>
+    <div class="ion-padding">
+      <ion-button (click)="setCurrentTemplate()" expand="block" color="primary">Set As Current Template</ion-button>
+    </div>
+  </ion-footer>
+}
