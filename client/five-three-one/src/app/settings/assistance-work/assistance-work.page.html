@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Assistance Work</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/settings" text="Settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="background" >
+      <ion-title size="large">Assistance Work</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  @if(assistanceWork) {
+      <ion-list>
+        <ion-list-header>
+          <ion-label color="warning">
+            Current Template
+          </ion-label>
+        </ion-list-header>
+        <ion-item [routerLink]="'/tabs/settings/assistance-work-template/' + assistanceWork.id">
+          <ion-label>
+            <h1>
+              {{ assistanceWork.name }}
+            </h1>
+          </ion-label>
+          <!-- <ion-button fill="clear">Edit</ion-button> -->
+        </ion-item>
+      </ion-list>
+  
+      <ion-list>
+        <ion-list-header>
+          <ion-label color="warning">
+            Other Templates
+          </ion-label>
+        </ion-list-header>
+        @for(template of templates; track template.name) {
+          <ion-item [routerLink]="'/tabs/settings/assistance-work-template/' + template.id">
+            <ion-label>
+              <h1>{{ template.name }}</h1>
+              <p> {{ template.description }} </p>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-list>
+      <!-- <ion-card *ngFor="let template of templates" [routerLink]="'/tabs/settings/assistance-work-template/' + template.id">
+        <ion-card-header>
+          <ion-card-title>
+            {{ template.name }}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p> {{ template.description }} </p>
+        </ion-card-content>
+        <div class="ion-padding">
+  
+          <ion-button expand="block">
+            <span *ngIf="template.id === assistanceWork.id">
+              Current Template
+            </span>
+            <span *ngIf="template.id !== assistanceWork.id">
+              View Template
+            </span>
+          </ion-button>
+        </div>
+      </ion-card> -->
+  }
+</ion-content>

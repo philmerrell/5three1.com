@@ -40,18 +40,20 @@
         </ion-item> -->
       </ion-list>
     </ion-card>
-      <ion-list-header>
-        <ion-label color="warning">
-          Available Plates
-        </ion-label>
-      </ion-list-header>
-      <ion-list>
-        @for(plate of barbellAndWeights.weights[weightUnit.unit]; let index = $index; track index) {
-          <ion-item>
-            <ion-checkbox (ionChange)="selectWeight($event)" [checked]="plate.selected" [value]="plate" justify="space-between">{{ plate.weight }} {{ weightUnit.unit }}</ion-checkbox>
-          </ion-item>
-        }
-      </ion-list>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="warning">
+            Available Plates
+          </ion-card-title>
+        </ion-card-header>
+        <ion-list>
+          @for(plate of barbellAndWeights.weights[weightUnit.unit]; let index = $index; track index) {
+            <ion-item>
+              <ion-checkbox (ionChange)="selectWeight($event)" [checked]="plate.selected" [value]="plate" justify="space-between">{{ plate.weight }} {{ weightUnit.unit }}</ion-checkbox>
+            </ion-item>
+          }
+        </ion-list>
+      </ion-card>
   }
 
 </ion-content>
