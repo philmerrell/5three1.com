@@ -1,0 +1,32 @@
+<!-- <pre>
+  {{ records | json }}
+</pre> -->
+<div *ngIf="records">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <h1 style="margin: 0 0 0 10px; font-weight: 700;">PRs</h1>
+      </ion-col>
+      <ion-col size="6" style="text-align: end;">
+        <!-- <ion-text style="font-weight: 500; font-size: 1.2em; margin-right: 5px;" color="secondary">Show More</ion-text> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card style="margin-top: 0;">
+    <ion-card-header>
+      <ion-card-subtitle>
+        Estimated 1RM ({{ unit }})
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let record of records">
+        <ion-icon name="trophy" slot="start" color="warning" size="large"></ion-icon>
+        <ion-label>
+          <h1>{{ record.name }}</h1>
+          <p>{{ record.weight[unit] }}{{unit}} x{{record.reps}}</p>
+        </ion-label>
+        <ion-text style="font-size: 1.3em; font-weight: 500" color="primary">{{ record.estimated1RM[unit] | number }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</div>

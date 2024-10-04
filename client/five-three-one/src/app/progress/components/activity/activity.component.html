@@ -1,0 +1,41 @@
+<h1 style="margin: 0 0 0 20px; font-weight: 700;">30-Day Activity</h1>
+<ion-card style="margin-top: 5px;">
+
+  <div class="calendar-container">
+    <ion-grid>
+      <!-- <ion-row>
+        <ion-col>
+          <ion-text color="primary">
+            <h4>{{ displayMonth }}</h4>
+          </ion-text>
+        </ion-col>
+      </ion-row> -->
+      <ion-row class="days-of-the-week-row">
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[0].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[1].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[2].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[3].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[4].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[5].dateObj | date:'E' }}</ion-col>
+        <ion-col class="days-of-the-week-col" size="1">{{ calendar[6].dateObj | date:'E' }}</ion-col>
+      </ion-row>
+      <!--  -->
+      <ion-row class="dates ion-align-items-center">
+        @for(day of calendar; let index = $index; track index) {
+          <ion-col size="1" [ngClass]="{'workout': day.didWorkout }" style="padding-top: 12px; text-align: center;">
+            <ion-text style="font-size: 0.8em;" [color]="day.didWorkout ? 'light' : 'dark'">
+              {{ day.dateObj | date:'M/d' }}
+            </ion-text>
+            <!-- <div style="background-color: #000; border-radius: 50%; width: 100%; border: 1px solid black; height: 100%"></div> -->
+          </ion-col>
+        }
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div style="display: inline-block; height: 15px; width: 15px; background: var(--ion-color-primary)"></div> = finished workout
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </div>
+</ion-card>

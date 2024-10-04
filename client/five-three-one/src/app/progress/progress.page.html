@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>progress</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="background">
+      <ion-title size="large">Progress</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <app-progress-activity [activity]="activity$ | async"></app-progress-activity>
+
+</ion-content>

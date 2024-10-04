@@ -70,9 +70,8 @@ export const routes: Routes = [
         loadComponent: () => import('../settings/assistance-work-template/assistance-work-template.page').then( m => m.AssistanceWorkTemplatePage)
       },
       {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+        path: 'progress',
+        loadComponent: () => import('../progress/progress.page').then( m => m.ProgressPage)
       },
       {
         path: '',

@@ -1,0 +1,28 @@
+div.calendar-container {
+    --ion-grid-columns: 7;
+    --ion-grid-column-padding: 8px;
+    ion-col {
+        height: calc(100vw / 8);
+        
+    }
+
+    .workout {
+        background-color: var(--ion-color-primary);
+        // border-radius: 50%;
+    }
+
+    .days-of-the-week-row {
+        color: var(--ion-color-warning);
+
+        .days-of-the-week-col {
+            text-align: center;
+        }
+    }
+
+    .dates {
+        // ion-col {
+        //     border: 1px solid var(--ion-color-medium)
+        // }
+    }
+}
+
