@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlertController, IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
+import { AlertController, IonBackButton, IonButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
 import { ScheduleService, TargetDay } from '../../shared/services/schedule.service';
 import { CycleService } from '../../shared/services/cycle.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-settings',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./schedule-settings.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar,
-    IonListHeader, IonList, IonItem, IonLabel, IonButton, IonButtons, IonBackButton
+    IonListHeader, IonList, IonItem, IonLabel, IonButton, IonButtons, IonBackButton, IonCard, RouterLink
   ]
 })
 export class ScheduleSettingsPage implements OnInit {
@@ -33,10 +33,6 @@ export class ScheduleSettingsPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-  }
-
-  editFinishedWorkouts() {
-    this.router.navigateByUrl('/tabs/schedule/completed-workouts');
   }
 
   selectDay(event) {

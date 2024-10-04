@@ -14,14 +14,16 @@
     </ion-toolbar>
   </ion-header>
   <ion-list-header style="margin-top: 40px;">Danger Zone</ion-list-header>
-  <ion-list>
-    <ion-item (click)="editFinishedWorkouts()" detail>
-      <ion-label>Edit Finished Workouts</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Reset Schedule</ion-label>
-      <ion-button (click)="presentScheduleResetAlert()" slot="end" color="danger">Reset</ion-button>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-list>
+      <ion-item routerLink="../completed-workouts" detail>
+        <ion-label>Edit Finished Workouts</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Reset Schedule</ion-label>
+        <ion-button (click)="presentScheduleResetAlert()" slot="end" color="danger">Reset</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
 </ion-content>

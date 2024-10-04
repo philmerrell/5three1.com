@@ -14,94 +14,97 @@
     </ion-toolbar>
   </ion-header>
   @if(weightUnit$ | async; as weight) {
-    <ion-list>
-      <ion-radio-group (ionChange)="setWeightUnit($event)" [value]="weight.unit">
-        <ion-list-header>
-          <ion-label color="warning">
-            Weight Unit
-          </ion-label>
-        </ion-list-header>
-    
-        <ion-item>
-          <ion-radio value="lb" justify="space-between">lb</ion-radio>
-        </ion-item>
-    
-        <ion-item>
-          <ion-radio value="kg" justify="space-between">kg</ion-radio>
-        </ion-item>
-  
-      </ion-radio-group>
-    </ion-list>
-    @if(weightIncrement$ | async; as weightIncrement) {
-      @if(weight.unit === 'lb') {
-        <ion-list>
-          <ion-radio-group (ionChange)="setWeightIncrement($event, weightIncrement, weight.unit)" [value]="weightIncrement.lb">
-            <ion-list-header>
-              <ion-label color="warning">
-                Weight Increment
-              </ion-label>
-            </ion-list-header>
-            <ion-list>
-              <ion-item>
-                <ion-radio [value]="2.5" justify="space-between">2.5</ion-radio>
-              </ion-item>
-          
-              <ion-item>
-                <ion-radio [value]="5.0" justify="space-between">5.0</ion-radio>
-              </ion-item>
-            </ion-list>
-      
-          </ion-radio-group>
-        </ion-list>
-      }
-      @if(weight.unit === 'kg') {
-        <ion-list>
-          <ion-radio-group (ionChange)="setWeightIncrement($event, weightIncrement, weight.unit)" [value]="weightIncrement.kg">
-            <ion-list-header>
-              <ion-label color="warning">
-                Weight Increment
-              </ion-label>
-            </ion-list-header>
-            <ion-list>
-              <ion-item>
-                <ion-radio [value]="0.5" justify="space-between">0.5</ion-radio>
-              </ion-item>
-    
-              <ion-item>
-                <ion-radio [value]="1" justify="space-between">1</ion-radio>
-              </ion-item>
-          
-              <ion-item>
-                <ion-radio [value]="2.5" justify="space-between">2.5</ion-radio>
-              </ion-item>
-            </ion-list>
-          </ion-radio-group>
-        </ion-list>
-      }
-    
-    }
-    @if(weightRounding$ | async; as weightRounding) {
+    <ion-card>
+
       <ion-list>
-        <ion-radio-group (ionChange)="setWeightRounding($event)" [value]="weightRounding">
+        <ion-radio-group (ionChange)="setWeightUnit($event)" [value]="weight.unit">
           <ion-list-header>
             <ion-label color="warning">
-              Weight Rounding
+              Weight Unit
             </ion-label>
           </ion-list-header>
       
           <ion-item>
-            <ion-radio justify="space-between" value="lowest">To Lower Weight</ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-radio justify="space-between" value="nearest">To Nearest Weight</ion-radio>
+            <ion-radio value="lb" justify="space-between">lb</ion-radio>
           </ion-item>
       
           <ion-item>
-            <ion-radio justify="space-between" value="highest">To Higher Weight</ion-radio>
+            <ion-radio value="kg" justify="space-between">kg</ion-radio>
           </ion-item>
     
         </ion-radio-group>
       </ion-list>
-    }
+      @if(weightIncrement$ | async; as weightIncrement) {
+        @if(weight.unit === 'lb') {
+          <ion-list>
+            <ion-radio-group (ionChange)="setWeightIncrement($event, weightIncrement, weight.unit)" [value]="weightIncrement.lb">
+              <ion-list-header>
+                <ion-label color="warning">
+                  Weight Increment
+                </ion-label>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-radio [value]="2.5" justify="space-between">2.5</ion-radio>
+                </ion-item>
+            
+                <ion-item>
+                  <ion-radio [value]="5.0" justify="space-between">5.0</ion-radio>
+                </ion-item>
+              </ion-list>
+        
+            </ion-radio-group>
+          </ion-list>
+        }
+        @if(weight.unit === 'kg') {
+          <ion-list>
+            <ion-radio-group (ionChange)="setWeightIncrement($event, weightIncrement, weight.unit)" [value]="weightIncrement.kg">
+              <ion-list-header>
+                <ion-label color="warning">
+                  Weight Increment
+                </ion-label>
+              </ion-list-header>
+              <ion-list>
+                <ion-item>
+                  <ion-radio [value]="0.5" justify="space-between">0.5</ion-radio>
+                </ion-item>
+      
+                <ion-item>
+                  <ion-radio [value]="1" justify="space-between">1</ion-radio>
+                </ion-item>
+            
+                <ion-item>
+                  <ion-radio [value]="2.5" justify="space-between">2.5</ion-radio>
+                </ion-item>
+              </ion-list>
+            </ion-radio-group>
+          </ion-list>
+        }
+      
+      }
+      @if(weightRounding$ | async; as weightRounding) {
+        <ion-list>
+          <ion-radio-group (ionChange)="setWeightRounding($event)" [value]="weightRounding">
+            <ion-list-header>
+              <ion-label color="warning">
+                Weight Rounding
+              </ion-label>
+            </ion-list-header>
+        
+            <ion-item>
+              <ion-radio justify="space-between" value="lowest">To Lower Weight</ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-radio justify="space-between" value="nearest">To Nearest Weight</ion-radio>
+            </ion-item>
+        
+            <ion-item>
+              <ion-radio justify="space-between" value="highest">To Higher Weight</ion-radio>
+            </ion-item>
+      
+          </ion-radio-group>
+        </ion-list>
+      }
+    </ion-card>
   }
 </ion-content>

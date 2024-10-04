@@ -58,6 +58,10 @@ export const routes: Routes = [
         loadComponent: () => import('../settings/training-percent/training-percent.page').then( m => m.TrainingPercentPage)
       },
       {
+        path: 'settings/plate-calculator',
+        loadComponent: () => import('../settings/plate-calculator/plate-calculator.page').then( m => m.PlateCalculatorPage)
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),

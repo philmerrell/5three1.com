@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonRadio, IonRadioGroup, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonRadio, IonRadioGroup, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Observable } from 'rxjs';
 import { WeightIncrement, WeightService } from '../../shared/services/weight.service';
 
@@ -10,7 +10,7 @@ import { WeightIncrement, WeightService } from '../../shared/services/weight.ser
   templateUrl: './weight-precision.page.html',
   styleUrls: ['./weight-precision.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule, IonList, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, AsyncPipe, IonButtons, IonBackButton
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule, IonList, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, AsyncPipe, IonButtons, IonBackButton, IonCard
 
   ]
 })

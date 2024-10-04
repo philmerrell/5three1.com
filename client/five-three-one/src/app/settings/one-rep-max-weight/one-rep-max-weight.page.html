@@ -24,27 +24,23 @@
   </ion-item>
   <ion-card>
       <form [formGroup]="form">
+        <ion-list-header>
+          <ion-label color="warning">
+            One Rep Max
+          </ion-label>
+        </ion-list-header>
         <ion-list>
-          <ion-list-header>
-            <ion-label color="warning">
-              One Rep Max
-            </ion-label>
-          </ion-list-header>
           <ion-item>
-            <ion-label position="stacked">Squat</ion-label>
-            <ion-input formControlName="squat" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+            <ion-input formControlName="squat" label="Squat" labelPlacement="start" inputmode="decimal" min="0" type="number"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Bench</ion-label>
-            <ion-input formControlName="bench" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+            <ion-input formControlName="bench" label="Bench" labelPlacement="start" inputmode="decimal" min="0" type="number"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Deadlift</ion-label>
-            <ion-input formControlName="deadlift" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+            <ion-input formControlName="deadlift" label="Deadlift" labelPlacement="start" inputmode="decimal" min="0" type="number"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">Shoulder Press</ion-label>
-            <ion-input formControlName="shoulderPress" color="dark" inputmode="decimal" min="0" type="number"></ion-input>
+            <ion-input formControlName="shoulderPress" label="Shoulder Press" labelPlacement="start" inputmode="decimal" min="0" type="number"></ion-input>
           </ion-item>
         </ion-list>
       </form>

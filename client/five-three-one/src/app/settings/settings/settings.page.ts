@@ -160,7 +160,7 @@ export class SettingsPage implements OnInit {
 
   navigateToPlateCalculator() {
     // if (this.purchaseStatus.plateCalculator.owned) {
-    //   this.router.navigateByUrl('/tabs/settings/plate-calculator');
+      this.router.navigateByUrl('/tabs/settings/plate-calculator');
     // } else {
     //   const plateCalculatorProduct = this.products.find((product) => product.id === PRODUCT_PLATE_CALCULATOR);
     //   this.presentProductModal(plateCalculatorProduct);

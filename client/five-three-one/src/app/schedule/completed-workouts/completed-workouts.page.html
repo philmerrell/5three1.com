@@ -16,7 +16,7 @@
 
   <ion-list>
     @for(workout of finishedWorkouts; track workout.id) {
-      <ion-item [routerLink]="'/tabs/schedule/completed-workouts/'+ workout.id" detail>
+      <ion-item [routerLink]="'./'+ workout.id" detail>
         <ion-label>
           <h1>{{ workout.description }}</h1>
           <p>{{ workout.datetimeCompleted | date }}</p>

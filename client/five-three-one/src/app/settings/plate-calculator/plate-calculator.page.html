@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Plate Calculator</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/settings" text="Settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar color="background">
+      <ion-title size="large">Plate Calculator</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if(barbellAndWeights && weightUnit) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title color="warning">
+          Bar Weight
+        </ion-card-title>
+      </ion-card-header>
+      <ion-list>
+        <ion-item>
+          <ion-input (ionChange)="setBarWeight($event)" [label]="weightUnit.unit" type="number" inputmode="decimal" min="0" [(ngModel)]="barbellAndWeights.barbellWeight[weightUnit.unit]"></ion-input>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-label>
+            <h1>Weight Unit</h1>
+          </ion-label>
+          <ion-select (ionChange)="setWeightUnit($event)" [value]="weight.unit" interface="popover">
+            <ion-select-option value="lb">lb</ion-select-option>
+            <ion-select-option value="kg">kg</ion-select-option>
+          </ion-select>
+        </ion-item> -->
+        <!-- <ion-item>
+          <ion-label>Pepperoni</ion-label>
+          <ion-toggle [(ngModel)]="pepperoni"></ion-toggle>
+        </ion-item> -->
+      </ion-list>
+    </ion-card>
+      <ion-list-header>
+        <ion-label color="warning">
+          Available Plates
+        </ion-label>
+      </ion-list-header>
+      <ion-list>
+        @for(plate of barbellAndWeights.weights[weightUnit.unit]; let index = $index; track index) {
+          <ion-item>
+            <ion-checkbox (ionChange)="selectWeight($event)" [checked]="plate.selected" [value]="plate" justify="space-between">{{ plate.weight }} {{ weightUnit.unit }}</ion-checkbox>
+          </ion-item>
+        }
+      </ion-list>
+  }
+
+</ion-content>
