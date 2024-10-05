@@ -19,7 +19,7 @@ import { ActivityService } from '../../shared/services/activity.service';
 import { PersonalRecordService, PRAttempt } from '../../shared/services/personal-record.service';
 import { TimeElapsedPipe } from '../../shared/pipes/time-elapsed.pipe';
 import { addIcons } from 'ionicons';
-import { bulb, checkmark } from 'ionicons/icons';
+import { bulb, checkmark, trophy } from 'ionicons/icons';
 // import { InAppPurchaseModalService } from '../shared/in-app-purchase-modal/in-app-purchase-modal.service';
 
 @Component({
@@ -65,12 +65,14 @@ export class WorkoutPage implements OnInit, OnDestroy {
 
 
   constructor(
+    // private inAppPurchaseService: InAppPurchaseService,
+    // private inAppPurchaseModalService: InAppPurchaseModalService,
+    // private screenService: ScreenService,
+    // private store: InAppPurchase2,
     private alertController: AlertController,
     private activityService: ActivityService,
     private cycleService: CycleService,
     private hapticService: HapticService,
-    // private inAppPurchaseService: InAppPurchaseService,
-    // private inAppPurchaseModalService: InAppPurchaseModalService,
     private modalController: ModalController,
     private navController: NavController,
     private onboardingService: OnboardingService,
@@ -79,13 +81,11 @@ export class WorkoutPage implements OnInit, OnDestroy {
     private routerOutlet: IonRouterOutlet,
     private restTimerService: RestTimerService,
     private scheduleService: ScheduleService,
-    // private screenService: ScreenService,
-    // private store: InAppPurchase2,
     private toastController: ToastController,
     private workoutCompleteService: WorkoutCompleteService,
     private workoutService: WorkoutService,
     private weightService: WeightService) {
-      addIcons({checkmark, bulb})
+      addIcons({checkmark, bulb, trophy})
     }
 
   ngOnInit() {
@@ -179,14 +179,15 @@ export class WorkoutPage implements OnInit, OnDestroy {
               if (attempt.record) {
                 setTimeout(() => {
                   this.showPRToast(attempt);
-                }, 500)
+                }, 500);
+                alert.dismiss();
               } else {
-                return false;
+                alert.dismiss();
               }
             } else {
-              return false
+              
             }
-            return false
+            
           }
         }
       ]
@@ -301,12 +302,14 @@ export class WorkoutPage implements OnInit, OnDestroy {
   }
 
   private async showPRToast(attempt: PRAttempt) {
-    const message = `<ion-icon name="trophy" size="large"></ion-icon> New Personal Record: ${attempt.estimated1RM[this.weightUnit]}`;
+    const message = `New Personal Record: ${attempt.estimated1RM[this.weightUnit]}`;
 
     const toast = await this.toastController.create({
       message,
-      duration: 5000,
-      color: 'dark',
+      duration: 3500,
+      icon: 'trophy',
+      swipeGesture: 'vertical',
+      color: 'success',
       buttons: ['OK']
     });
     toast.present();
