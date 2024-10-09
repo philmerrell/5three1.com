@@ -13,6 +13,11 @@
       <ion-title size="large">Schedule Settings</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card>
+    <ion-item>
+      <ion-checkbox (ionChange)="handleWarmupToggle($event)" [ngModel]="warmupEnabled">Enable Warmup Lifts</ion-checkbox>
+    </ion-item>
+  </ion-card>
   <ion-list-header style="margin-top: 40px;">Danger Zone</ion-list-header>
   <ion-card>
     <ion-list>

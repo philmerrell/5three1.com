@@ -207,20 +207,25 @@ export class WorkoutPage implements OnInit, OnDestroy {
   }
 
   async getWorkout() {
-    this.cyclesSubscription = this.scheduleService.getScheduleObservable().subscribe(cycles => {
-      this.cycles = cycles;
-      cycles.forEach((cycle, i) => {
-        const found = cycle.schedule.find(workout => workout.id === this.id);
-        if (found) {
-          console.log(found);
-          this.workout = found;
-          this.workoutService.startWorkout(this.workout);
-          if (!cycle.datetimeStarted) {
-            cycle.datetimeStarted = new Date().toISOString();
+    if(!this.cyclesSubscription) {
+      // this.cyclesSubscription = this.cycleService.getCyclesObservable().subscribe(cycles => {
+      //   console.log(cycles);
+      // });
+
+      this.cyclesSubscription = this.scheduleService.getScheduleObservable().subscribe(cycles => {
+        this.cycles = cycles;
+        cycles.forEach((cycle, i) => {
+          const found = cycle.schedule.find(workout => workout.id === this.id);
+          if (found) {
+            this.workout = found;
+            this.workoutService.startWorkout(this.workout);
+            if (!cycle.datetimeStarted) {
+              cycle.datetimeStarted = new Date().toISOString();
+            }
           }
-        }
-      });
-    })
+        });
+      })
+    }
   }
 
   async presentRestTimerModal() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AlertController, IonBackButton, IonButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
+import { AlertController, IonBackButton, IonButton, IonButtons, IonCard, IonCheckbox, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
 import { ScheduleService, TargetDay } from '../../shared/services/schedule.service';
 import { CycleService } from '../../shared/services/cycle.service';
 import { Router, RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './schedule-settings.page.html',
   styleUrls: ['./schedule-settings.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonCheckbox, FormsModule,
     IonListHeader, IonList, IonItem, IonLabel, IonButton, IonButtons, IonBackButton, IonCard, RouterLink
   ]
 })
@@ -19,6 +19,7 @@ export class ScheduleSettingsPage implements OnInit {
   targetDays: TargetDay[];
   backButtonDefaultHref = '';
   backButtonText = '';
+  warmupEnabled: boolean = true;
 
   constructor(
     private alertController: AlertController,
@@ -29,10 +30,21 @@ export class ScheduleSettingsPage implements OnInit {
 
   async ngOnInit() {
     this.targetDays = await this.scheduleService.getTargetDays();
+    this.warmupEnabled = await this.cycleService.getWarmupEnabled();
     this.setBackButtonDefaults();
   }
 
   async ionViewDidEnter() {
+  }
+
+  handleWarmupToggle(event) {
+    const enabled = event.detail.checked;
+    this.cycleService.setWarmupEnabled(enabled);
+    // if(enabled) {
+    //   this.cycleService.addWarmupToWorkouts();
+    // } else {
+    //   this.cycleService.removeExistingWarmups();
+    // }
   }
 
   selectDay(event) {

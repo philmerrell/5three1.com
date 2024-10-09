@@ -39,9 +39,18 @@ export class ScheduleService {
 
   async initScheduleObservable() {
     const cycles = await this.cycleService.getCycles();
-    this.subscription = combineLatest([this.getOneRepMaxObservable(), this.getTrainingPercentageObservable(), this.getWeightIncrementObservable(), this.getWeightRoundingObservable(), this.getTargetDaysObservable(), this.getCurrentAssistanceWorkObservable()])
-      .subscribe(async ([oneRepMax, tp, wi, wr, targetDays, assistanceWork]) => {
-        this.schedule = await this.calculateCycleSchedule(cycles, oneRepMax, targetDays, assistanceWork);
+    this.subscription = combineLatest(
+      [
+        this.getOneRepMaxObservable(),
+        this.getTrainingPercentageObservable(),
+        this.getWeightIncrementObservable(),
+        this.getWeightRoundingObservable(),
+        this.getTargetDaysObservable(),
+        this.getCurrentAssistanceWorkObservable(),
+        this.getWarmupEnabledObservable()
+      ])
+      .subscribe(async ([oneRepMax, tp, wi, wr, targetDays, assistanceWork, warmupEnabled]) => {
+        this.schedule = await this.calculateCycleSchedule(cycles, oneRepMax, targetDays, assistanceWork, warmupEnabled);
         this.cycleService.setCycles(this.schedule);
         this.scheduleSubject.next(this.schedule);
       });
@@ -52,7 +61,7 @@ export class ScheduleService {
     this.initScheduleObservable();
   }
 
-  async calculateCycleSchedule(cycles: Cycle[], oneRepMax: OneRepMax, td: TargetDay[], assistanceWork: AssistanceWorkTemplate) {
+  async calculateCycleSchedule(cycles: Cycle[], oneRepMax: OneRepMax, td: TargetDay[], assistanceWork: AssistanceWorkTemplate, warmupEnabled: boolean) {
     const targetDays = this.getTargetDaysMap(td);
     const lastDateCompleted = this.getLastDateCompleted(cycles);
     for (const cycle of cycles) {
@@ -68,11 +77,16 @@ export class ScheduleService {
           }
         }
 
-        for (let warmup of workout.warmup) {
-          if (warmup.weight) {
-            warmup.weight = await this.weightService.calculateWeight(oneRepMax[workout.key], warmup.percentage);
-            warmup.plates = await this.weightPlatesService.calculate(warmup.weight);
+        if(warmupEnabled) {
+          this.addWarmupToWorkouts(workout);
+          for (let warmup of workout.warmup) {
+            if (warmup.weight) {
+              warmup.weight = await this.weightService.calculateWeight(oneRepMax[workout.key], warmup.percentage);
+              warmup.plates = await this.weightPlatesService.calculate(warmup.weight);
+            }
           }
+        } else {
+          this.removeExistingWarmups(workout);
         }
         
         if (!workout.datetimeStarted) {
@@ -110,6 +124,21 @@ export class ScheduleService {
     this.targetDay = undefined;
     this.workoutDate = undefined;
     return cycles;
+  }
+
+  private addWarmupToWorkouts(workout: Workout) {
+    if(!workout.datetimeCompleted) {
+      workout.warmup = this.cycleService.createWarmup(workout.key);
+    }        
+  }
+
+  private removeExistingWarmups(workout: Workout) {
+    let i = workout.warmup.length;
+    while (i--) {
+      if (!workout.warmup[i].complete) {
+        workout.warmup.splice(i, 1);
+      }
+    }
   }
 
   private addAllWorkoutReps(schedule: Workout) {
@@ -327,6 +356,10 @@ export class ScheduleService {
 
   private getCurrentAssistanceWorkObservable() {
     return this.assistanceWorkService.getCurrentAssistanceWorkObservable();
+  }
+
+  private getWarmupEnabledObservable() {
+    return this.cycleService.getWarmupEnabledObservable();
   }
 
 

@@ -85,6 +85,7 @@ export interface Lift {
 export class CycleService {
   schedule: Cycle[] = [];
   cyclesSubject: BehaviorSubject<Cycle[]> = new BehaviorSubject([] as Cycle[]);
+  warmupEnabledSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private assistanceWorkService: AssistanceWorkService) {}
 
@@ -113,6 +114,25 @@ export class CycleService {
   setCycles(cycles: Cycle[]) {
     this.cyclesSubject.next(cycles);
     return Preferences.set({ key: 'cycles', value: JSON.stringify(cycles)})
+  }
+
+  getWarmupEnabledObservable() {
+    return from(this.getWarmupEnabled()).pipe(
+      switchMap((result: boolean) => {
+        this.warmupEnabledSubject.next(result);
+        return this.warmupEnabledSubject.asObservable();
+      })
+    )
+  }
+
+  setWarmupEnabled(enabled: boolean) {
+    this.warmupEnabledSubject.next(enabled);
+    return Preferences.set({ key: 'warmupEnabled', value: JSON.stringify(enabled)})
+  }
+
+  async getWarmupEnabled(): Promise<boolean>{
+    const result = await Preferences.get({ key: 'warmupEnabled'});
+    return result.value ? JSON.parse(result.value) : true
   }
 
   async resetCycles() {
@@ -149,7 +169,6 @@ export class CycleService {
 
   async getWorkout(id: string) {
     const cycles = await this.getCycles();
-    console.log(cycles);
     let workout;
     cycles.forEach((cycle, i) => {
       const found = cycle.schedule.find(workout => workout.id === id);
@@ -196,6 +215,7 @@ export class CycleService {
   }
 
   private async create555Workout(lift: string, targetDate?: string): Promise<Workout> {
+    const warmupEnabled = await this.getWarmupEnabled();
     const assistanceWork = await this.assistanceWorkService.getCurrentAssistanceWorkTemplate();
     return {
       id: uuidv4(),
@@ -244,13 +264,14 @@ export class CycleService {
           }
         }
       ],
-      warmup: this.createWarmup(lift),
+      warmup: warmupEnabled ? this.createWarmup(lift) : [],
       assistanceWork: []
     }
   }
 
   private async create333Workout(lift: string, targetDate?: string): Promise<Workout> {
     const assistanceWork = await this.assistanceWorkService.getCurrentAssistanceWorkTemplate();
+    const warmupEnabled = await this.getWarmupEnabled();
     return {
       id: uuidv4(),
       cycle: '3/3/3+',
@@ -298,13 +319,14 @@ export class CycleService {
           }
         }
       ],
-      warmup: this.createWarmup(lift),
+      warmup: warmupEnabled ? this.createWarmup(lift) : [],
       assistanceWork: assistanceWork.lifts[lift as keyof typeof Lifts]
 
     }
   }
 
   private async create531Workout(lift: string, targetDate?: string): Promise<Workout> {
+    const warmupEnabled = await this.getWarmupEnabled();
     const assistanceWork = await this.assistanceWorkService.getCurrentAssistanceWorkTemplate();
     return {
       id: uuidv4(),
@@ -353,12 +375,13 @@ export class CycleService {
           }
         }
       ],
-      warmup: this.createWarmup(lift),
+      warmup: warmupEnabled ? this.createWarmup(lift) : [],
       assistanceWork: assistanceWork.lifts[lift as keyof typeof Lifts]
     }
   }
 
   private async createDeloadWorkout(lift: string, targetDate?: string): Promise<Workout> {
+    const warmupEnabled = await this.getWarmupEnabled();
     const assistanceWork = await this.assistanceWorkService.getCurrentAssistanceWorkTemplate();
     return {
       id: uuidv4(),
@@ -407,7 +430,7 @@ export class CycleService {
           }
         }
       ],
-      warmup: this.createWarmup(lift),
+      warmup: warmupEnabled ? this.createWarmup(lift) : [],
       assistanceWork: assistanceWork.lifts[lift as keyof typeof Lifts]
     }
   }

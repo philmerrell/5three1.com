@@ -46,7 +46,9 @@
         </ion-item>
       </div> -->
       
-        <ion-list>
+      <ion-list>
+        @if(workout.warmup.length) {
+
           <ion-list-header color="background">
             <ion-label color="warning">
               Warmup
@@ -100,6 +102,7 @@
               }
             </ion-item>
           }
+        }
           <ion-list-header color="background">
             <ion-label color="warning">
               {{ workout.cycle }}
