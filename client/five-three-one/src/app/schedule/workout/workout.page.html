@@ -60,7 +60,7 @@
             <ion-item color="background">
               <div tabindex="0"></div>
     
-              <ion-label>
+              <ion-label [color]="lift.complete ? 'medium' : ''">
                 <h3>{{ lift.name }}</h3>
                 <h1>
                   {{ lift.weight[weightUnit] }} {{ weightUnit }}
@@ -95,7 +95,7 @@
                 </ion-button>
               }
               @if(lift.id === latestCompletedLiftId) {
-                <ion-button (click)="presentRestTimerModal()" fill="clear" size="large">
+                <ion-button (click)="presentRestTimerModal()" fill="clear" size="large" class="timer-button">
                   {{ timer | timeElapsed }}
                 </ion-button>
               }
@@ -109,7 +109,7 @@
           </ion-list-header>
           @for(lift of workout.lifts; let index = $index; track index; let last = $last) {
             <ion-item color="background">
-              <ion-label>
+              <ion-label [color]="lift.complete ? 'medium' : ''">
                 <h3>{{ lift.name }}</h3>
                 <h1>
                   {{ lift.weight[weightUnit] }} {{ weightUnit }}
@@ -174,7 +174,7 @@
           }
           @for(lift of workout.assistanceWork; let index = $index; track index) {
             <ion-item color="background">
-              <ion-label>
+              <ion-label [color]="lift.complete ? 'medium' : ''">
                 <h3>{{ lift.name }}</h3>
                 <h1>
                   {{ lift.weight[weightUnit] }} {{ weightUnit }}

@@ -78,7 +78,9 @@ export class WorkoutCompleteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.personalRecordsPurchaseStatusSub.unsubscribe();
+    if (this.personalRecordsPurchaseStatusSub) {
+      this.personalRecordsPurchaseStatusSub.unsubscribe();
+    }
   }
 
   dismiss() {
