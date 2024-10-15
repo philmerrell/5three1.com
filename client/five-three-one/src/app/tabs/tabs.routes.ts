@@ -30,6 +30,10 @@ export const routes: Routes = [
         loadComponent: () => import('../schedule/completed-workouts-detail/completed-workouts-detail.page').then( m => m.CompletedWorkoutsDetailPage)
       },
       {
+        path: 'schedule/workout/:id/assistance-work/:lift',
+        loadComponent: () => import('../schedule/assistance-work-edit/assistance-work-edit.page').then( m => m.AssistanceWorkEditPage)
+      },
+      {
         path: 'settings',
         loadComponent: () => import('../settings/settings/settings.page').then( m => m.SettingsPage)
       },

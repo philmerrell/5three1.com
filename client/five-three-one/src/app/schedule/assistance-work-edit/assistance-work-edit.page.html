@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    @if(lift) {
+      <ion-title>Template</ion-title>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if(weightUnit$ | async; as weightUnit) {
+    @if(assistanceWork) {
+      
+        <ion-list>
+          <ion-list-header>
+            <ion-label color="warning">
+              {{ LiftsEnum[lift] }} Assistance Work
+            </ion-label>
+          </ion-list-header>
+          @for(lift of lifts; let i = $index; track i;) {
+            <ion-item>
+              <ion-text slot="start" color="dark">{{ i + 1 }}</ion-text>
+              <ion-label>
+                <h1>{{ lift.name }}</h1>
+                @if(lift.percentage) {
+                  <h3>
+                    Weight: {{ lift.percentage | percent }} of 1RM
+                  </h3>
+                } @else {
+                  <h3>
+                    Weight: 
+                    @if (lift.weight[weightUnit.unit] === 0) {
+                      <span >-</span>
+                    } @else {
+                      <span >{{ lift.weight[weightUnit.unit] }}</span>
+                    }
+                  </h3>
+                }
+                <ion-text color="medium" slot="end">
+                  Reps: {{ lift.reps }}
+                  @if(lift.failure) {
+                    <span>+</span>
+                  } @else {
+                    <span>&nbsp;&nbsp;</span>
+                  }
+                </ion-text>
+              </ion-label>
+              <ion-button (click)="openExerciseModal(weightUnit.unit, lift)" fill="clear" size="medium" color="primary">
+                edit
+              </ion-button>
+            </ion-item>
+          }
+        </ion-list>
+    }
+  }
+</ion-content>

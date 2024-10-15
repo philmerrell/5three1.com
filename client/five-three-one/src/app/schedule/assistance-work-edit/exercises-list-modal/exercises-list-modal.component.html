@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercises</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    @for(exercise of exercises; let i = $index; track i) {
+      <ion-item (click)="addExercise(exercise)">
+        <ion-label>
+          <h1>{{ exercise.name }}</h1>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>
