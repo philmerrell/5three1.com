@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Lifts</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Assitance Lifts</ion-card-title>
+      <ion-card-subtitle>{{ type }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-item>
+      <ion-input label="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Weight" type="number" inputmode="decimal" min="1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Reps" type="number" inputmode="decimal" min="1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Sets" type="number" inputmode="decimal" min="1"></ion-input>
+    </ion-item>
+  </ion-card>
+  <div class="ion-padding">
+    <ion-button expand="block">Add</ion-button>
+  </div>
+</ion-content>

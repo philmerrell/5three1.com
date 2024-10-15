@@ -66,6 +66,10 @@ export const routes: Routes = [
         loadComponent: () => import('../settings/assistance-work/assistance-work.page').then( m => m.AssistanceWorkPage)
       },
       {
+        path: 'settings/assistance-work/create-assistance-work-template',
+        loadComponent: () => import('../settings/create-assistance-work-template/create-assistance-work-template.page').then( m => m.CreateAssistanceWorkTemplatePage)
+      },
+      {
         path: 'settings/assistance-work-template/:id',
         loadComponent: () => import('../settings/assistance-work-template/assistance-work-template.page').then( m => m.AssistanceWorkTemplatePage)
       },

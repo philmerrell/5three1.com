@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/settings/assistance-work"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Create a Template
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-input label="Name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Description" placeholder="Optional"></ion-textarea>
+    </ion-item>
+  </ion-card>
+
+  <ion-accordion-group value="squat">
+    <ion-accordion value="squat">
+      <ion-item slot="header" color="light">
+        <ion-badge slot="start">{{assistanceTemplate.lifts.squat.length}}</ion-badge>
+        <ion-label>
+          Squat
+        </ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item (click)="presentCreateLiftsModal('squat')">
+          <ion-icon name="add" color="primary" slot="start"></ion-icon>
+          <ion-text color="primary">Add squat assistance lifts...</ion-text>
+        </ion-item>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="bench">
+      <ion-item slot="header" color="light">
+        <ion-badge slot="start">{{assistanceTemplate.lifts.bench.length}}</ion-badge>
+        <ion-label>Bench</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item (click)="presentCreateLiftsModal('bench')">
+          <ion-icon name="add" color="primary" slot="start"></ion-icon>
+          <ion-text color="primary">Add bench assistance lifts...</ion-text>
+        </ion-item>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="deadlift">
+      <ion-item slot="header" color="light">
+        <ion-badge slot="start">{{assistanceTemplate.lifts.deadlift.length}}</ion-badge>
+        <ion-label>Deadlift</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item (click)="presentCreateLiftsModal('deadlift')">
+          <ion-icon name="add" color="primary" slot="start"></ion-icon>
+          <ion-text color="primary">Add deadlift assistance lifts...</ion-text>
+        </ion-item>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="shoulderPress">
+      <ion-item slot="header" color="light">
+        <ion-badge slot="start">{{assistanceTemplate.lifts.shoulderPress.length}}</ion-badge>
+        <ion-label>Shoulder Press</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-item (click)="presentCreateLiftsModal('shoulder press')">
+          <ion-icon name="add" color="primary" slot="start"></ion-icon>
+          <ion-text color="primary">Add shoulder press assistance lifts...</ion-text>
+        </ion-item>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+</ion-content>

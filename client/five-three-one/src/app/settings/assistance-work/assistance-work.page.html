@@ -4,6 +4,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/settings" text="Settings"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <!-- <ion-button>Create</ion-button> -->
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -36,6 +39,14 @@
             Other Templates
           </ion-label>
         </ion-list-header>
+        <ion-item routerLink="/tabs/settings/assistance-work/create-assistance-work-template">
+          <ion-icon name="add" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <ion-text color="primary">
+              Create an assistance template...
+            </ion-text>
+          </ion-label>
+        </ion-item>
         @for(template of templates; track template.name) {
           <ion-item [routerLink]="'/tabs/settings/assistance-work-template/' + template.id">
             <ion-label>
