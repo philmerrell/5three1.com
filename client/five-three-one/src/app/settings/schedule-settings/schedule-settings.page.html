@@ -3,19 +3,26 @@
     <ion-buttons slot="start">
       <ion-back-button [text]="backButtonText" [defaultHref]="backButtonDefaultHref"></ion-back-button>
     </ion-buttons>
-    <ion-title>Schedule Settings</ion-title>
+    <ion-title>Cycle Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar color="background">
-      <ion-title size="large">Schedule Settings</ion-title>
+      <ion-title size="large">Cycle Settings</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list-header style="margin-top: 40px;">Workouts</ion-list-header>
   <ion-card>
     <ion-item>
       <ion-checkbox (ionChange)="handleWarmupToggle($event)" [ngModel]="warmupEnabled">Enable Warmup Lifts</ion-checkbox>
+    </ion-item>
+  </ion-card>
+  <ion-list-header>Cycles</ion-list-header>
+  <ion-card>
+    <ion-item>
+      <ion-checkbox (ionChange)="handleDeloadToggle($event)" [ngModel]="deloadEnabled">Enable Deload Cycle</ion-checkbox>
     </ion-item>
   </ion-card>
   <ion-list-header style="margin-top: 40px;">Danger Zone</ion-list-header>

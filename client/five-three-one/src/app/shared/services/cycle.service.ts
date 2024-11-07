@@ -86,6 +86,7 @@ export class CycleService {
   schedule: Cycle[] = [];
   cyclesSubject: BehaviorSubject<Cycle[]> = new BehaviorSubject([] as Cycle[]);
   warmupEnabledSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  deloadEnabledSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(private assistanceWorkService: AssistanceWorkService) {}
 
@@ -125,6 +126,15 @@ export class CycleService {
     )
   }
 
+  getDeloadEnabledObservable() {
+    return from(this.getDeloadEnabled()).pipe(
+      switchMap((result: boolean) => {
+        this.deloadEnabledSubject.next(result);
+        return this.deloadEnabledSubject.asObservable();
+      })
+    )
+  }
+
   setWarmupEnabled(enabled: boolean) {
     this.warmupEnabledSubject.next(enabled);
     return Preferences.set({ key: 'warmupEnabled', value: JSON.stringify(enabled)})
@@ -132,6 +142,16 @@ export class CycleService {
 
   async getWarmupEnabled(): Promise<boolean>{
     const result = await Preferences.get({ key: 'warmupEnabled'});
+    return result.value ? JSON.parse(result.value) : true
+  }
+
+  setDeloadEnabled(enabled: boolean) {
+    this.deloadEnabledSubject.next(enabled);
+    return Preferences.set({ key: 'deloadEnabled', value: JSON.stringify(enabled)})
+  }
+
+  async getDeloadEnabled(): Promise<boolean>{
+    const result = await Preferences.get({ key: 'deloadEnabled'});
     return result.value ? JSON.parse(result.value) : true
   }
 
@@ -149,15 +169,7 @@ export class CycleService {
   async createCycles(): Promise<Cycle[]> {
     const schedule: Cycle[] = [];
     for (let cycle in Cycles) {
-      let iteration = {
-        description: Cycles[cycle as keyof typeof Cycles],
-        schedule: [] as Workout[],
-        completedCycleReps: 0,
-        completedCycleWeight: { lb: 0, kg: 0 },
-        complete: false,
-        totalCycleWeight: { lb: 0, kg: 0 },
-        totalCycleReps: 0
-      };
+      const iteration = this.createCycle(cycle);
       for (let lift in Lifts) {
         const workouts: Workout = await this.createWorkouts(lift, cycle)
         iteration.schedule.push(workouts)
@@ -165,6 +177,18 @@ export class CycleService {
       schedule.push(iteration);
     }
     return schedule;
+  }
+
+  createCycle(cycle: string) {
+    return {
+      description: Cycles[cycle as keyof typeof Cycles],
+      schedule: [] as Workout[],
+      completedCycleReps: 0,
+      completedCycleWeight: { lb: 0, kg: 0 },
+      complete: false,
+      totalCycleWeight: { lb: 0, kg: 0 },
+      totalCycleReps: 0
+    };
   }
 
   async getWorkout(id: string) {
@@ -196,7 +220,7 @@ export class CycleService {
     }
   }
 
-  private async createWorkouts(lift: string, cycle: string): Promise<Workout> {
+  async createWorkouts(lift: string, cycle: string): Promise<Workout> {
     switch (cycle) {
       case "FiveFiveFive": 
         return await this.create555Workout(lift);

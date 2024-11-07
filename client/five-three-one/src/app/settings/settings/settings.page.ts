@@ -7,7 +7,7 @@ import { WeightService } from '../../shared/services/weight.service';
 import { Router, RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { App } from '@capacitor/app';
-import { barbell, body, build, calculator, calendar, openOutline, options, phonePortrait } from 'ionicons/icons';
+import { barbell, body, build, calculator, openOutline, options, phonePortrait, sync } from 'ionicons/icons';
 
 @Component({
   selector: 'app-settings',
@@ -64,7 +64,7 @@ export class SettingsPage implements OnInit {
     private router: Router,
     // private store: InAppPurchase2
   ) {
-    addIcons({barbell, calendar, body, build, calculator, options, phonePortrait, openOutline });
+    addIcons({barbell, sync, body, build, calculator, options, phonePortrait, openOutline });
   }
 
   ngOnInit() {

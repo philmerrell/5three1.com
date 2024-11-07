@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, Observable, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AssistanceWorkService, AssistanceWorkTemplate } from './assistance-work.service';
-import { Cycle, CycleService, Workout } from './cycle.service';
+import { Cycle, CycleService, Lifts, Workout } from './cycle.service';
 import { OneRepMax, WeightService } from './weight.service';
 import { Preferences } from '@capacitor/preferences';
 import { WeightPlatesService } from './weight-plates.service';
@@ -47,10 +47,11 @@ export class ScheduleService {
         this.getWeightRoundingObservable(),
         this.getTargetDaysObservable(),
         this.getCurrentAssistanceWorkObservable(),
-        this.getWarmupEnabledObservable()
+        this.getWarmupEnabledObservable(),
+        this.getDeloadEnabledObservable()
       ])
-      .subscribe(async ([oneRepMax, tp, wi, wr, targetDays, assistanceWork, warmupEnabled]) => {
-        this.schedule = await this.calculateCycleSchedule(cycles, oneRepMax, targetDays, assistanceWork, warmupEnabled);
+      .subscribe(async ([oneRepMax, tp, wi, wr, targetDays, assistanceWork, warmupEnabled, deloadEnabled]) => {
+        this.schedule = await this.calculateCycleSchedule(cycles, oneRepMax, targetDays, assistanceWork, warmupEnabled, deloadEnabled);
         this.cycleService.setCycles(this.schedule);
         this.scheduleSubject.next(this.schedule);
       });
@@ -61,10 +62,11 @@ export class ScheduleService {
     this.initScheduleObservable();
   }
 
-  async calculateCycleSchedule(cycles: Cycle[], oneRepMax: OneRepMax, td: TargetDay[], assistanceWork: AssistanceWorkTemplate, warmupEnabled: boolean) {
+  async calculateCycleSchedule(cycles: Cycle[], oneRepMax: OneRepMax, td: TargetDay[], assistanceWork: AssistanceWorkTemplate, warmupEnabled: boolean, deloadEnabled: boolean) {
     const targetDays = this.getTargetDaysMap(td);
     const lastDateCompleted = this.getLastDateCompleted(cycles);
     for (const cycle of cycles) {
+      console.log(cycle);
       for (const workout of cycle.schedule) {
 
         if (!workout.datetimeCompleted) {
@@ -118,12 +120,38 @@ export class ScheduleService {
       
     }
 
+    if (!deloadEnabled) {
+      this.removeDeloadCycle(cycles);
+    }
+
     // add cycles totals
     this.addAllCycleReps(cycles);
     this.addAllCycleWeight(cycles);
     this.targetDay = undefined;
     this.workoutDate = undefined;
     return cycles;
+  }
+
+  private async createDeloadLifts(cycle: Cycle) {
+    for (let lift in Lifts) {
+      const workouts: Workout = await this.cycleService.createWorkouts(lift, cycle.description)
+      cycle.schedule.push(workouts)
+    }
+  }
+
+  private removeDeloadCycle(cycles: Cycle[]) {
+    const deload = cycles.find(c => c.description === 'Deload');
+    if (deload) {
+      if(!deload.datetimeStarted) {
+        // remove deload cycle
+        const index = cycles.indexOf(deload);
+        if (index) {
+          cycles.splice(index, 1);
+        }
+      }
+    } else {
+      // 
+    }
   }
 
   private addWarmupToWorkouts(workout: Workout) {
@@ -360,6 +388,10 @@ export class ScheduleService {
 
   private getWarmupEnabledObservable() {
     return this.cycleService.getWarmupEnabledObservable();
+  }
+
+  private getDeloadEnabledObservable() {
+    return this.cycleService.getDeloadEnabledObservable();
   }
 
 

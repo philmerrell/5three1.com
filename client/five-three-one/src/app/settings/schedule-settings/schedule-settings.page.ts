@@ -19,6 +19,7 @@ export class ScheduleSettingsPage implements OnInit {
   targetDays: TargetDay[];
   backButtonDefaultHref = '';
   backButtonText = '';
+  deloadEnabled: boolean = true;
   warmupEnabled: boolean = true;
 
   constructor(
@@ -31,6 +32,7 @@ export class ScheduleSettingsPage implements OnInit {
   async ngOnInit() {
     this.targetDays = await this.scheduleService.getTargetDays();
     this.warmupEnabled = await this.cycleService.getWarmupEnabled();
+    this.deloadEnabled = await this.cycleService.getDeloadEnabled();
     this.setBackButtonDefaults();
   }
 
@@ -40,11 +42,11 @@ export class ScheduleSettingsPage implements OnInit {
   handleWarmupToggle(event) {
     const enabled = event.detail.checked;
     this.cycleService.setWarmupEnabled(enabled);
-    // if(enabled) {
-    //   this.cycleService.addWarmupToWorkouts();
-    // } else {
-    //   this.cycleService.removeExistingWarmups();
-    // }
+  }
+
+  handleDeloadToggle(event) {
+    const enabled = event.detail.checked;
+    this.cycleService.setDeloadEnabled(enabled);
   }
 
   selectDay(event) {
