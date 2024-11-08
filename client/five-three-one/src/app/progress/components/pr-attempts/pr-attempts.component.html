@@ -8,17 +8,23 @@
     </ion-col> -->
   </ion-row>
 </ion-grid>
-<ion-card *ngFor="let attempt of attempts">
-  <ion-list>
-    <ion-item lines="none">
-      <ion-icon *ngIf="attempt.record" slot="start" size="large" color="warning" name="trophy"></ion-icon>
-      <ion-icon *ngIf="!attempt.record" slot="start" size="large" color="medium" name="barbell"></ion-icon>
-      <ion-label>
-        <p><ion-text color="medium">{{ attempt.date | timeAgo }}</ion-text></p>
-        <h1>{{ attempt.name }} <small style="color: var(--ion-color-medium)">Estimated 1RM</small></h1>
-        <p><ion-text [color]="attempt.record ? 'success' : 'medium'">{{ attempt.weight[unit]}}{{unit}} x{{ attempt.reps }}</ion-text></p>
-        <ion-text style="font-size: 2em; font-weight: 700;" [color]="attempt.record ? 'primary' : 'medium'">{{ attempt.estimated1RM[unit] | number }}</ion-text>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-</ion-card>
+@for(attempt of attempts; let i = $index; track i) {
+  <ion-card>
+    <ion-list>
+      <ion-item lines="none">
+        @if(attempt.record) {
+          <ion-icon slot="start" size="large" color="warning" name="trophy"></ion-icon>
+        }
+        @if(!attempt.record) {
+          <ion-icon slot="start" size="large" color="medium" name="barbell"></ion-icon>
+        }
+        <ion-label>
+          <p><ion-text color="medium">{{ attempt.date | timeAgo }}</ion-text></p>
+          <h1>{{ attempt.name }} <small style="color: var(--ion-color-medium)">Estimated 1RM</small></h1>
+          <p><ion-text [color]="attempt.record ? 'success' : 'medium'">{{ attempt.weight[unit]}}{{unit}} x{{ attempt.reps }}</ion-text></p>
+          <ion-text style="font-size: 2em; font-weight: 700;" [color]="attempt.record ? 'primary' : 'medium'">{{ attempt.estimated1RM[unit] | number }}</ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+}

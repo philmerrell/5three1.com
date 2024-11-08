@@ -8,13 +8,15 @@ import { Cycle } from '../shared/services/cycle.service';
 import { PersonalRecordService, PRAttempt } from '../shared/services/personal-record.service';
 import { ScheduleService } from '../shared/services/schedule.service';
 import { WeightService } from '../shared/services/weight.service';
+import { PrAttemptsComponent } from './components/pr-attempts/pr-attempts.component';
+import { PersonalRecordsComponent } from './components/personal-records/personal-records.component';
 
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.page.html',
   styleUrls: ['./progress.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, AsyncPipe, DatePipe, ActivityComponent, DecimalPipe, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonText]
+  imports: [PersonalRecordsComponent, IonContent, PrAttemptsComponent, IonHeader, IonTitle, IonToolbar, AsyncPipe, DatePipe, ActivityComponent, DecimalPipe, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonText]
 })
 export class ProgressPage implements OnInit {
   activity$: Observable<any[]>;

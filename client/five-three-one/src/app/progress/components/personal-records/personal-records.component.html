@@ -1,7 +1,7 @@
 <!-- <pre>
   {{ records | json }}
 </pre> -->
-<div *ngIf="records">
+@if(records) {
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col>
@@ -19,14 +19,16 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-list>
-      <ion-item *ngFor="let record of records">
-        <ion-icon name="trophy" slot="start" color="warning" size="large"></ion-icon>
-        <ion-label>
-          <h1>{{ record.name }}</h1>
-          <p>{{ record.weight[unit] }}{{unit}} x{{record.reps}}</p>
-        </ion-label>
-        <ion-text style="font-size: 1.3em; font-weight: 500" color="primary">{{ record.estimated1RM[unit] | number }}</ion-text>
-      </ion-item>
+      @for(record of records; let i = $index; track i) {
+        <ion-item>
+          <ion-icon name="trophy" slot="start" color="warning" size="large"></ion-icon>
+          <ion-label>
+            <h1>{{ record.name }}</h1>
+            <p>{{ record.weight[unit] }}{{unit}} x{{record.reps}}</p>
+          </ion-label>
+          <ion-text style="font-size: 1.3em; font-weight: 500" color="primary">{{ record.estimated1RM[unit] | number }}</ion-text>
+        </ion-item>
+      }
     </ion-list>
   </ion-card>
-</div>
+}

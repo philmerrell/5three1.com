@@ -1,12 +1,20 @@
-const express = require('express');
-const authRoutes = require('./auth');
-const tokenRoutes = require('./token');
-const protectedRoutes = require('./protected');
+const jwt = require('jsonwebtoken');
 
-const router = express.Router();
+// In-memory store for refresh tokens (use a database in production)
+const refreshTokens = new Map();
 
-router.use('/auth', authRoutes);
-router.use('/token', tokenRoutes);
-router.use('/protected', protectedRoutes);
+function generateTokens(user) {
+  const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION,
+  });
+  const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRATION,
+  });
 
-module.exports = router;
+  // Store refresh token in memory (keyed by user ID)
+  refreshTokens.set(user.id, refreshToken);
+
+  return { accessToken, refreshToken };
+}
+
+module.exports = { generateTokens, refreshTokens };
